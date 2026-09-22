@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component TimePicker:
+    description:
+        A time picker is a control that holds a time of day as its value. It
+        selects at a configured granularity of hours, minutes, or seconds, and
+        formats the value according to locale and clock convention.

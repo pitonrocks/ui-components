@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component DropZone:
+    description:
+        A drop zone is a region that accepts files dragged onto it from outside
+        the application. It indicates when a drag is over it and whether the
+        dragged content is acceptable, and returns the files on drop.

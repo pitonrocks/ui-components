@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component TextField:
+    description:
+        A text field is a control that accepts a single line of free-form text.
+        It holds a current value, supports placeholder text, and can constrain
+        or mask its input for specialised content such as passwords, numbers, or
+        search terms.

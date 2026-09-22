@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component IconButton:
+    description:
+        An icon button is a button whose content is a single icon with no
+        visible text label. It carries an accessible name describing its action
+        and typically surfaces that name on hover or focus.

@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component NumberInput:
+    description:
+        A number input is a text field constrained to numeric values. It holds a
+        current value and validates it against a minimum, maximum, step, and
+        precision.

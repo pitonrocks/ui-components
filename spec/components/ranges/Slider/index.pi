@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component Slider:
+    description:
+        A slider is a control that sets a numeric value by moving a handle along
+        a track between a minimum and a maximum. It carries one handle for a
+        single value or two for a range, and moves either continuously or in
+        fixed steps.

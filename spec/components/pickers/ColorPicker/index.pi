@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component ColorPicker:
+    description:
+        A color picker is a control that holds a color as its value. It offers
+        selection from a continuous spectrum, a predefined set of swatches, or
+        direct entry of a color value, and may include an alpha channel.

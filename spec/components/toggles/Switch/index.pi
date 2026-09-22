@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Switch:
+    description:
+        A switch is a two-state control representing a setting that is on or
+        off. Activating it flips the state and applies the change immediately,
+        without a separate confirmation step.

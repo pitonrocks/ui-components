@@ -1,0 +1,12 @@
+use /lib/UiComponent
+
+import { Filtering } from "../../../behaviors/Filtering"
+
+export ui-component Combobox:
+    description:
+        A combobox is a text input paired with a list of options that filters as
+        the user types. It holds a current value that may be chosen from the list
+        or, where permitted, entered freely.
+
+    behaviors:
+        - Filtering

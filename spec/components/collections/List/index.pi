@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component List:
+    description:
+        A list is a container that renders a sequence of items along a single axis,
+        each item occupying one row. It supports keyboard traversal between items,
+        optional selection of one or many of them, and scrolls or virtualises when
+        the sequence exceeds its bounds.

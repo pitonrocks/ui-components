@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component DatePicker:
+    description:
+        A date picker is a control that holds a calendar date, or a range of
+        dates, as its value. It offers a calendar surface for selection
+        alongside typed entry, and formats and parses the value according to
+        locale.

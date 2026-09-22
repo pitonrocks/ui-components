@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Button:
+    description:
+        A button is a control that triggers an action when activated. It carries
+        a label, an icon, or both, and can be disabled to refuse activation or
+        show a pending state while its action is in progress.

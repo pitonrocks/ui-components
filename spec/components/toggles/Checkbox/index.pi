@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component Checkbox:
+    description:
+        A checkbox is a control that holds a selected or unselected state, and
+        optionally an indeterminate state representing a partial selection
+        among its descendants. Activating it toggles between selected and
+        unselected, and it carries an optional label naming what it controls.

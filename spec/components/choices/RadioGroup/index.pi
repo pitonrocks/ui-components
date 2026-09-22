@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component RadioGroup:
+    description:
+        A radio group is a container that binds a set of radios to one value and
+        ensures at most one of them is selected. It carries a group label and
+        moves selection between its radios with arrow-key navigation.

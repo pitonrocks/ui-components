@@ -1,5 +1,0 @@
-use ../../lib/UiComponent
-
-export ui-component Button:
-    description:
-        Clickable Thing.

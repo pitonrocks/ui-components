@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Select:
+    description:
+        A select is a control that holds one value chosen from a predefined list
+        of options. The list stays collapsed until opened, and choosing an
+        option sets the value and closes it.

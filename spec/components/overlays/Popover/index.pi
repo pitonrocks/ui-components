@@ -1,0 +1,9 @@
+use /lib/UiComponent
+
+export ui-component Popover:
+    description:
+        A popover is a transient surface layered above the content and anchored to
+        a trigger element. It positions itself relative to that anchor, shifting or
+        flipping to stay within the visible bounds, and dismisses on outside
+        interaction, cancellation, or loss of focus. It does not block interaction
+        with the content beneath it.

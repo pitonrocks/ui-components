@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component Grid:
+    description:
+        A grid is a container that arranges its children into rows and columns. It
+        defines the count and size of the tracks on both axes, the spacing between
+        them, and how each child aligns within the cell it occupies. A child may
+        span more than one track on either axis.

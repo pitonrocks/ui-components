@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component ToggleButton:
+    description:
+        A toggle button is a button that holds a persistent pressed or unpressed
+        state. Activating it flips the state and applies the effect immediately,
+        and its appearance reflects which state is current.

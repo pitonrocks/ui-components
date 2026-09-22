@@ -1,0 +1,8 @@
+use /lib/UiComponent
+
+export ui-component FloatingActionButton:
+    description:
+        A floating action button is a button layered above the content at a
+        fixed position, styled with high visual prominence. It represents a
+        single primary action and remains visible as the content beneath it
+        scrolls.

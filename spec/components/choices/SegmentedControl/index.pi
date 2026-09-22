@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component SegmentedControl:
+    description:
+        A segmented control is a row of joined options bound to a single value,
+        with every option visible at once. Selecting a segment makes it the
+        current value and deselects the previous one.

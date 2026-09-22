@@ -1,0 +1,52 @@
+use ../../lib/UiBehavior
+
+export ui-behavior Filtering:
+    description:
+        Filtering narrows a set of options to those matching a query and orders
+        what remains. It sits between a text input and the surface rendering the
+        results, and belongs to the component owning both rather than to either
+        one of them.
+
+    query:
+        The text the user has entered. An empty query matches every option and
+        preserves the source order.
+
+    matching:
+        An option matches when the normalised query occurs anywhere within its
+        normalised label as a contiguous substring. Prefix matching and
+        subsequence matching are deliberate alternatives to this rule, not
+        variations to be selected per component.
+
+    normalisation:
+        Query and label are compared case-insensitively and with diacritics
+        removed, so `cafe` matches `Café`. Whitespace surrounding the query is
+        ignored; whitespace within it is significant.
+
+    ordering:
+        Matches are ordered by the position at which they matched, earliest
+        first, with ties broken by the order of the source. Matching options are
+        not reordered on any other basis.
+
+    matchPositions:
+        A match reports the range it occupied within the label, so that whatever
+        renders the result can emphasise it. A matcher returning only a boolean
+        cannot support this and does not satisfy the contract.
+
+    emptyResult:
+        A query matching nothing yields an empty result rather than falling back
+        to the unfiltered set. What to render in that case is the owning
+        component's decision.
+
+    source:
+        The option set is synchronous and known in full at the time of the
+        query. Sourcing options remotely is a separate concern, carrying
+        debouncing, cancellation, and loading and error states, and is not part
+        of this behaviour.
+
+    nonGoals:
+        - No subsequence or fuzzy matching. It requires a ranking function to be
+          usable, which is a larger decision than this behaviour should make on
+          a component's behalf
+        - No automatic highlighting of the first match. Whether Enter selects
+          without an explicit move through the results belongs to the owning
+          component

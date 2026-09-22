@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component TextArea:
+    description:
+        A text area is a control that accepts multiple lines of free-form text.
+        It holds a current value and either scrolls within a fixed height or
+        grows to fit its content.

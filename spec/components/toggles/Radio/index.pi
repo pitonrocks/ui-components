@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Radio:
+    description:
+        A radio is a single selectable option belonging to a mutually exclusive
+        set. It is either selected or unselected, carries a label, and cannot be
+        unselected by activating it again.

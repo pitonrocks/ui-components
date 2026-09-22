@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Stepper:
+    description:
+        A stepper is a control that changes a numeric value by a fixed increment
+        through paired increase and decrease actions. It respects a minimum and
+        a maximum, disabling each action at its bound.

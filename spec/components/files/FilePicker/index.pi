@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component FilePicker:
+    description:
+        A file picker is a control that opens the platform file selection dialog
+        and returns the files the user chose. It can restrict selection by file
+        type and accept either a single file or several.

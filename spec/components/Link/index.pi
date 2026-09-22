@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Link:
+    description:
+        A link is an interactive text or inline element that navigates to
+        another location, within the application or outside it. It exposes its
+        destination and may open it in the current context or a new one.

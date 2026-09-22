@@ -1,0 +1,7 @@
+use /lib/UiComponent
+
+export ui-component Rating:
+    description:
+        A rating is a control that holds a score on a small fixed scale,
+        rendered as a row of repeated symbols. It may be interactive or
+        read-only, and may support fractional values.
