@@ -1,0 +1,4 @@
+export anchor UiComponent as ui-component:
+    UiComponent:
+        description:
+            Something.

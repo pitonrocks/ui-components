@@ -1,0 +1,11 @@
+use @piton/belay
+
+from ./components/Button import Button
+
+export skill UiComponents:
+    description: Ui Components
+    useWhen: Building UiComponents.
+    prompt: Build the Ui Components
+
+    components:
+        - @{Button}
