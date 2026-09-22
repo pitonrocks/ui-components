@@ -11,8 +11,15 @@ export piton-config Project:
     frameworks:
         - {BelayConfiguration}
 
+    packages:
+        - {UiComponents}
+
 belay-config BelayConfiguration:
     codeRoot: ./src
 
     adapters:
         - {ClaudeAdapter}
+
+package UiComponents:
+    root: ./spec
+    name: ui-components
