@@ -1,7 +1,40 @@
 use /lib/UiComponent
 
+from /components/collections/List import List
+from /components/overlays/Popover import Popover
+
 export ui-component TimePicker:
     description:
-        A time picker is a control that holds a time of day as its value. It
-        selects at a configured granularity of hours, minutes, or seconds, and
-        formats the value according to locale and clock convention.
+        A time picker holds a time of day as its value. It works in steps, such
+        as whole hours or every 15 minutes, and shows the time the way the user
+        is used to, such as `2:30 PM` or `14:30`.
+
+    composes:
+        - @{Popover}
+        - @{List}
+
+    value:
+        A time of day, with no date and no time zone. Seconds are only
+        included if the component asks for them.
+
+    clock:
+        Whether it uses a 12-hour or 24-hour clock follows the user's locale,
+        unless the component says otherwise.
+
+    typing:
+        The user can type a time. It's read when they finish. If it can't be
+        read as a time, an error is shown and the value doesn't change. A
+        typed time that falls between steps is kept as typed.
+
+    list:
+        A button next to the field opens a list of times, one per step, scrolled
+        to the current value. Picking one sets the value and closes the list.
+
+    limits:
+        The component can set an earliest and latest time. Times outside them
+        are shown but can't be picked.
+
+    nonGoals:
+        - No lengths of time, such as "2 hours 30 minutes". That's a duration,
+            not a time of day
+        - No time zones

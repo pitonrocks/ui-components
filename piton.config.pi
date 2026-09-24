@@ -1,8 +1,8 @@
-use @piton/packaging
-use @piton/config
 use @piton/belay
+use @piton/config
+use @piton/packaging
 
-from @piton/belay import ClaudeAdapter
+from @piton/belay import ClaudeCodeAdapter
 
 export piton-config Project:
     root: ./spec
@@ -18,8 +18,8 @@ belay-config BelayConfiguration:
     codeRoot: ./src
 
     adapters:
-        - {ClaudeAdapter}
+        - {ClaudeCodeAdapter}
 
-package UiComponents:
+piton-package UiComponents:
     root: ./spec
     name: ui-components

@@ -1,8 +1,45 @@
 use /lib/UiComponent
 
+from /behaviors/Selection import Selection
+from /behaviors/Traversal import Traversal
+from /behaviors/Virtualisation import Virtualisation
+
 export ui-component List:
     description:
-        A list is a container that renders a sequence of items along a single axis,
-        each item occupying one row. It supports keyboard traversal between items,
-        optional selection of one or many of them, and scrolls or virtualises when
-        the sequence exceeds its bounds.
+        A list shows a series of items stacked one after another, each on its
+        own row. The user can move through it with the keyboard and, if the
+        component allows it, pick one or more items.
+
+    behaviors:
+        - @{Traversal}
+        - @{Selection}
+        - @{Virtualisation}
+
+    items:
+        Each item has a name that assistive tools can read out. What else an
+        item shows, such as an icon or a second line of text, is up to the
+        component using the list.
+
+    picking:
+        The component decides whether the list lets the user pick nothing, one
+        item, or several. Clicking an item, or pressing the pick key on it,
+        picks it. Which key that is is up to the chosen library.
+
+    groups:
+        Items can be put in groups under headings. Headings can't be picked,
+        and the arrow keys pass over them.
+
+    disabled:
+        Disabled items are shown but can't be picked.
+
+    empty:
+        When there are no items, the component using the list decides what to
+        show instead, such as "Nothing here yet".
+
+    long:
+        Virtualisation is only switched on for lists long enough to need it.
+
+    nonGoals:
+        - No items inside items. That's a tree
+        - No columns. Rows of data with column headings are a table
+        - No dragging to reorder

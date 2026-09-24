@@ -1,7 +1,55 @@
 use /lib/UiComponent
 
+from /behaviors/Traversal import Traversal
+from /components/fields/TextField import TextField
+from /components/layout/Grid import Grid
+from /components/overlays/Popover import Popover
+from /components/ranges/Slider import Slider
+
 export ui-component ColorPicker:
     description:
-        A color picker is a control that holds a color as its value. It offers
-        selection from a continuous spectrum, a predefined set of swatches, or
-        direct entry of a color value, and may include an alpha channel.
+        A color picker holds a colour as its value. The user can pick it from a
+        spread of colours, choose from a set of ready-made swatches, or type a
+        colour code. It can also include how see-through the colour is.
+
+    composes:
+        - @{Popover}
+        - @{Slider}
+        - @{TextField}
+        - @{Grid}
+
+    behaviors:
+        - @{Traversal}
+
+    trigger:
+        A small button showing the current colour opens the picker in a popup.
+
+    parts:
+        The component chooses which of these to show: a colour area with a
+        hue slider, a set of swatches, and a box for typing a colour code.
+        Changing any one updates the others.
+
+    colourArea:
+        The user drags a point around a square of colours, or moves it with
+        the arrow keys. A slider beside it picks the hue.
+
+    swatches:
+        Swatches are laid out in a grid. Each has a name that assistive tools
+        read out, such as "Ocean blue", rather than a code. The user moves
+        between them with the arrow keys.
+
+    typing:
+        The user can type a colour code. It's read when they finish, and if it
+        isn't a valid colour, an error is shown and the value doesn't change.
+        Which formats are accepted, such as hex codes, is up to the chosen
+        library.
+
+    transparency:
+        If the component allows it, a second slider sets how see-through the
+        colour is.
+
+    nonGoals:
+        - Picking a colour from elsewhere on screen is up to the chosen library
+            and platform
+        - Which colour spaces are supported, beyond standard screen colours, is
+            up to the chosen library

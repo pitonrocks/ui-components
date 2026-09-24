@@ -2,7 +2,32 @@ use /lib/UiComponent
 
 export ui-component Grid:
     description:
-        A grid is a container that arranges its children into rows and columns. It
-        defines the count and size of the tracks on both axes, the spacing between
-        them, and how each child aligns within the cell it occupies. A child may
-        span more than one track on either axis.
+        A grid lays out what's inside it in rows and columns. It sets how many
+        rows and columns there are, how big they are, the gaps between them,
+        and how each item sits within its cell. An item can stretch across
+        more than one row or column.
+
+    sizes:
+        A row or column can be a fixed size, fit its content, or take a share
+        of the space left over. How sizes are written is up to the chosen
+        library.
+
+    placing:
+        Items fill the cells in order, across and then down, unless told to go
+        in a particular cell. For right-to-left languages, "across" runs right
+        to left.
+
+    alignment:
+        An item can be lined up to the start, middle, or end of its cell, or
+        stretched to fill it, both across and down.
+
+    order:
+        The order a keyboard or screen reader goes through the items is the
+        order they were given in, not where they appear. Items shouldn't be
+        placed so that the two disagree in a confusing way.
+
+    nonGoals:
+        - Layout only. It doesn't move focus or pick anything; a component that
+            uses it for something interactive, like a calendar, adds that
+            itself
+        - Not a table. Rows of data with column headings are a table

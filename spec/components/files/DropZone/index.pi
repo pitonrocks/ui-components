@@ -1,7 +1,31 @@
 use /lib/UiComponent
 
+from /components/files/FilePicker import FilePicker
+
 export ui-component DropZone:
     description:
-        A drop zone is a region that accepts files dragged onto it from outside
-        the application. It indicates when a drag is over it and whether the
-        dragged content is acceptable, and returns the files on drop.
+        A drop zone is an area the user can drag files onto from outside the
+        app. It shows when files are being dragged over it and whether they'll
+        be accepted, and hands back the files when they're dropped.
+
+    composes:
+        - @{FilePicker}
+
+    dragging:
+        While files are dragged over it, the zone changes to show it's ready.
+        If they won't be accepted, such as the wrong kind of file, it shows
+        that instead, before the user lets go.
+
+    dropping:
+        Dropped files are checked against the same limits as a FilePicker:
+        which kinds of file, and one or several. The component is told which
+        files were accepted, and which were turned away and why.
+
+    otherWays:
+        Dragging and dropping can't be done from the keyboard, and isn't
+        possible for every user. So the zone is also a FilePicker: clicking it,
+        or pressing it from the keyboard, opens the file chooser.
+
+    nonGoals:
+        - No uploading, progress bars, or previews. It only hands back the files
+        - Not for dragging things around inside the app

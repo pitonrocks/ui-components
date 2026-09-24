@@ -1,12 +1,60 @@
 use /lib/UiComponent
 
-import { Filtering } from "../../../behaviors/Filtering"
+from /behaviors/Filtering import Filtering
+from /components/collections/List import List
+from /components/fields/TextField import TextField
+from /components/overlays/Popover import Popover
 
 export ui-component Combobox:
     description:
-        A combobox is a text input paired with a list of options that filters as
-        the user types. It holds a current value that may be chosen from the list
-        or, where permitted, entered freely.
+        A combobox is a text box with a list of options underneath that
+        narrows down as the user types. Its value is either an option picked
+        from the list or, if the component allows it, whatever the user typed.
+
+    composes:
+        - @{TextField}
+        - @{Popover}
+        - @{List}
 
     behaviors:
-        - Filtering
+        - @{Filtering}
+
+    opening:
+        Typing opens the list. The user can also open it from the keyboard
+        without typing, or with a button next to the text box. Which keys do
+        this, and whether clicking into the text box opens it, is up to the
+        chosen library.
+
+    focus:
+        Keyboard focus stays in the text box the whole time, so the user can
+        keep typing. The arrow keys move a highlight through the list, and
+        assistive tools are told which option is highlighted.
+
+    highlight:
+        If typed text is allowed as a value, nothing is highlighted until the
+        user moves into the list, so Enter keeps what they typed. If only
+        options from the list are allowed, the first match is highlighted as
+        they type, so Enter picks it.
+
+    choosing:
+        Clicking an option, or pressing Enter on the highlighted one, sets the
+        value, puts the option's label in the text box, and closes the list.
+        Escape closes the list without changing the value. Matching parts of
+        each option are highlighted as the user types.
+
+    freeText:
+        The component decides whether typed text that isn't an option counts
+        as a value. If it doesn't, leaving the text box puts back the label of
+        the current value, or empties it if there's no value.
+
+    noMatches:
+        When nothing matches, the list shows a message saying so, rather than
+        closing or showing everything.
+
+    clearing:
+        Emptying the text box clears the value, unless the combobox must have
+        a value.
+
+    nonGoals:
+        - Not for picking several values
+        - No fetching options from a server as the user types. See Filtering

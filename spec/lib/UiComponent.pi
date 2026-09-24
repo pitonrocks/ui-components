@@ -1,4 +1,2 @@
-export anchor UiComponent as ui-component:
-    UiComponent:
-        description:
-            Something.
+export abstract anchor UiComponent as ui-component:
+    description:: string

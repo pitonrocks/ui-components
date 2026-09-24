@@ -1,0 +1,37 @@
+use /lib/UiBehavior
+
+export ui-behavior Virtualisation:
+    description:
+        Virtualisation draws only the part of a long list that is on screen,
+        plus a little extra, so a list of a million items is as quick as a list
+        of fifty.
+
+    window:
+        The items on screen are drawn, along with some just above and below,
+        so the user doesn't see blank space while scrolling and the next items
+        are being drawn.
+
+    extent:
+        The scrollbar reflects the whole list, not just the part that is drawn,
+        so its size and position are accurate.
+
+    measurement:
+        Either every item is the same, known height, or each item is measured
+        as it is drawn and the estimates are corrected as it goes. Correcting
+        an estimate never makes what the user is looking at jump.
+
+    accessibility:
+        Screen readers and other assistive tools are told the real number of
+        items, and each item's real position in the whole list, not just among
+        the items currently drawn. How this is done is up to the chosen
+        library.
+
+    focusRetention:
+        The item the user is focused on stays drawn even after it scrolls off
+        screen, so focus isn't lost. When a key like End or Page Down moves
+        focus to an item that isn't drawn yet, the list scrolls to it first,
+        then focus lands on it.
+
+    nonGoals:
+        - Not on by default. It makes measuring and focus harder to get right,
+            so a list short enough to draw in full should just be drawn in full

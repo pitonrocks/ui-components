@@ -1,7 +1,27 @@
 use /lib/UiComponent
 
+from /components/buttons/Button import Button
+
 export ui-component ToggleButton:
     description:
-        A toggle button is a button that holds a persistent pressed or unpressed
-        state. Activating it flips the state and applies the effect immediately,
-        and its appearance reflects which state is current.
+        A toggle button stays pressed in or popped out, like a Bold button in a
+        text editor. Pressing it switches between the two and takes effect
+        straight away, and it looks different in each state.
+
+    composes:
+        - @{Button}
+
+    pressed:
+        It is either pressed or not, with nothing in between. Pressing it
+        switches the state straight away and tells the component using it. That
+        component can also set the state at any time. If the button is disabled
+        or busy, pressing it does nothing and the state doesn't change.
+
+    name:
+        The name says what is being turned on or off, and stays the same in
+        both states. Whether it is pressed is conveyed separately.
+
+    nonGoals:
+        - The name doesn't change with the state. A button whose text changes to
+            say what it will do next, like Play then Pause, is an ordinary
+            Button whose label is changed by the component using it

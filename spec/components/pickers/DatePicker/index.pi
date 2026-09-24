@@ -1,8 +1,60 @@
 use /lib/UiComponent
 
+from /behaviors/Traversal import Traversal
+from /components/layout/Grid import Grid
+from /components/overlays/Popover import Popover
+
 export ui-component DatePicker:
     description:
-        A date picker is a control that holds a calendar date, or a range of
-        dates, as its value. It offers a calendar surface for selection
-        alongside typed entry, and formats and parses the value according to
-        locale.
+        A date picker holds a date, or a range of dates, as its value. The user
+        can type the date, or pick it from a calendar that pops up. Dates are
+        shown and read in the user's local format.
+
+    composes:
+        - @{Popover}
+        - @{Grid}
+
+    behaviors:
+        - @{Traversal}
+
+    value:
+        A plain calendar date, such as 25 September 2026, with no time of day
+        and no time zone.
+
+    typing:
+        The user can type a date in their local format. It's read when they
+        finish. If it can't be read as a date, an error is shown and the value
+        doesn't change.
+
+    calendar:
+        A button next to the field opens a calendar showing one month. It
+        opens on the month of the current value, or today's month if there is
+        none, with that day focused. Today is marked. The week starts on the
+        day that's usual for the user's locale.
+
+    calendarKeyboard:
+        The arrow keys move a day at a time left and right, and a week at a
+        time up and down, moving into the next or previous month as needed.
+        Home and End go to the start and end of the week. Page Up and Page
+        Down move a month, and with Shift, a year. Enter picks the focused day.
+
+    picking:
+        Picking a day sets the value and closes the calendar, and focus goes
+        back to the field. Escape closes it without changing anything.
+
+    range:
+        For a range, the user picks two days, and the days between them are
+        highlighted as they move. The earlier day becomes the start whichever
+        order they were picked in. The calendar closes after the second pick.
+
+    limits:
+        The component can set an earliest and latest date, and mark other days
+        as unavailable, such as weekends. Unavailable days are shown but can't
+        be picked.
+
+    nonGoals:
+        - No time of day. That's a TimePicker; a date and time together is the
+            two combined
+        - No preset ranges like "Last 7 days". The app can add those
+        - Which calendar systems are supported, beyond the usual one, is up to
+            the chosen library

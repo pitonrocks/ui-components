@@ -1,7 +1,31 @@
 use /lib/UiComponent
 
+from /components/buttons/Button import Button
+
 export ui-component FilePicker:
     description:
-        A file picker is a control that opens the platform file selection dialog
-        and returns the files the user chose. It can restrict selection by file
-        type and accept either a single file or several.
+        A file picker is a button that opens the device's own file chooser and
+        hands back the files the user picked. It can limit which kinds of file
+        are offered, and allow one file or several.
+
+    composes:
+        - @{Button}
+
+    picking:
+        Pressing the button opens the device's file chooser. If the user
+        cancels, nothing changes. Picking again replaces the earlier choice
+        rather than adding to it.
+
+    fileTypes:
+        The component can say which kinds of file to offer, such as images
+        only. This is a hint to the file chooser, and on some platforms the
+        user can get around it, so the files handed back are still checked.
+
+    chosen:
+        After picking, it shows what was chosen, such as the file name or "3
+        files", and lets the user clear the choice.
+
+    nonGoals:
+        - No uploading, progress bars, or previews. It only hands back the files
+        - Whether folders can be picked is up to the chosen library and
+            platform

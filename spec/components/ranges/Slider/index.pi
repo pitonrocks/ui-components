@@ -2,7 +2,41 @@ use /lib/UiComponent
 
 export ui-component Slider:
     description:
-        A slider is a control that sets a numeric value by moving a handle along
-        a track between a minimum and a maximum. It carries one handle for a
-        single value or two for a range, and moves either continuously or in
-        fixed steps.
+        A slider sets a number by dragging a handle along a track, between a
+        minimum and a maximum, like a volume control. It has one handle for a
+        single number, or two for a range such as a price from $10 to $50. It
+        moves smoothly or in fixed steps.
+
+    pointer:
+        The user drags a handle to change the value. Clicking or tapping the
+        track moves the nearest handle to that spot.
+
+    keyboard:
+        Each handle can be focused on its own. The arrow keys move it by one
+        step, Page Up and Page Down by a bigger step, and Home and End to the
+        minimum and maximum.
+
+    range:
+        With two handles, they can't pass each other. Each handle can only go
+        as far as the other one.
+
+    reporting:
+        The component is told about changes continuously while a handle moves,
+        and again once when the user lets go, so it can choose to act only on
+        the final value.
+
+    valueText:
+        Assistive tools read out the value, which can be friendlier text than
+        the raw number, such as "$50" or "Medium".
+
+    direction:
+        A slider can run across or up and down. One running across is
+        reversed for right-to-left languages.
+
+    marks:
+        Whether it shows marks along the track, or the value while dragging,
+        is up to the chosen library.
+
+    nonGoals:
+        - Not for entering an exact number. Pair it with a NumberInput if that
+            matters

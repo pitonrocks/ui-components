@@ -1,7 +1,41 @@
 use /lib/UiComponent
 
+from /behaviors/Selection import Selection
+from /behaviors/Traversal import Traversal
+from /components/toggles/Radio import Radio
+
 export ui-component RadioGroup:
     description:
-        A radio group is a container that binds a set of radios to one value and
-        ensures at most one of them is selected. It carries a group label and
-        moves selection between its radios with arrow-key navigation.
+        A radio group is a set of radios where only one can be picked. It has a
+        label for the whole set, and the user can move between the options
+        with the arrow keys.
+
+    composes:
+        - @{Radio}
+
+    behaviors:
+        - @{Selection}
+        - @{Traversal}
+
+    value:
+        The group holds one value: whichever radio is picked. It can start with
+        nothing picked, but once the user picks one, they can't go back to
+        nothing; they can only pick a different one.
+
+    label:
+        The group has a name for the whole set, such as "Delivery speed", as
+        well as each radio having its own.
+
+    keyboard:
+        Pressing Tab moves into the group in one step, landing on the picked
+        radio, or the first available one if nothing is picked yet. The arrow
+        keys move to the next or previous radio and pick it as they go. They
+        wrap around from the last to the first, and skip disabled radios.
+        Pressing Tab again leaves the group.
+
+    layout:
+        The radios can be laid out in a column or a row. The arrow keys work
+        the same way either way.
+
+    disabled:
+        The whole group can be disabled, as can individual radios.

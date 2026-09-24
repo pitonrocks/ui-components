@@ -2,6 +2,40 @@ use /lib/UiComponent
 
 export ui-component Button:
     description:
-        A button is a control that triggers an action when activated. It carries
-        a label, an icon, or both, and can be disabled to refuse activation or
-        show a pending state while its action is in progress.
+        A button does something when the user presses it. It shows a label, an
+        icon, or both. It can be disabled so it can't be pressed, or show that
+        it's busy while its action is running.
+
+    content:
+        A label, an icon, or both. The icon can go before or after the label.
+        A button always has a name that assistive tools can read out, even if
+        it shows no text.
+
+    activation:
+        The user presses a button the usual way for the platform: clicking,
+        tapping, or using the keyboard. One full press is one activation. The
+        user can back out partway, such as by dragging off before letting go,
+        and nothing happens. Which keys press it, and whether it fires on the
+        way down or on release, is up to the chosen library.
+
+    repeatedActivation:
+        Every full press counts, however quickly they come. None are merged or
+        ignored. If the component using the button must not act twice, it puts
+        the button into its busy state.
+
+    disabled:
+        A disabled button can't be pressed, and it's clear to the user that
+        it's unavailable. Whether it can still receive focus is up to the
+        chosen library.
+
+    pending:
+        The busy state is turned on and off by the component using the button.
+        Pressing the button never turns it on by itself. A busy button can't be
+        pressed, and it's clear to the user that it's working. Its label and
+        name stay the same, and focus doesn't move when it starts or stops
+        being busy. How "busy" is shown is up to the chosen library.
+
+    nonGoals:
+        - Buttons don't go anywhere. Something that takes the user to another
+            place is a Link, even if it looks like a button
+        - Double-clicking or long-pressing doesn't mean anything special

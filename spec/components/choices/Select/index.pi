@@ -1,7 +1,48 @@
 use /lib/UiComponent
 
+from /components/collections/List import List
+from /components/overlays/Popover import Popover
+
 export ui-component Select:
     description:
-        A select is a control that holds one value chosen from a predefined list
-        of options. The list stays collapsed until opened, and choosing an
-        option sets the value and closes it.
+        A select lets the user pick one value from a fixed list of options. The
+        list stays hidden until the user opens it, and picking an option sets
+        the value and closes the list.
+
+    composes:
+        - @{Popover}
+        - @{List}
+
+    closed:
+        When closed, it shows the current value, or a placeholder such as
+        "Choose a country" if there isn't one. The placeholder is not a label;
+        the select still has its own name.
+
+    opening:
+        The user opens it by clicking it, or from the keyboard. Which keys
+        open it is up to the chosen library. When it opens, the current value
+        is highlighted and scrolled into view, or the first option if there is
+        no value. The list is at least as wide as the select.
+
+    choosing:
+        Moving through the open list with the arrow keys only highlights
+        options; it doesn't change the value. Clicking an option, or pressing
+        Enter on the highlighted one, sets the value and closes the list.
+        Escape closes it without changing anything. Either way, focus goes
+        back to the select.
+
+    typeAhead:
+        Typing letters, whether the list is open or closed, jumps to the first
+        option starting with what was typed. Nothing is hidden.
+
+    options:
+        Options can be put in groups under headings. Headings can't be picked.
+        Disabled options are shown but can't be picked.
+
+    clearing:
+        The component decides whether the value can be cleared back to
+        nothing. A select that must have a value can't be cleared.
+
+    nonGoals:
+        - No typing to search and narrow the list. That's a Combobox
+        - Not for picking several values

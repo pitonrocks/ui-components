@@ -2,6 +2,18 @@ use /lib/UiComponent
 
 export ui-component Radio:
     description:
-        A radio is a single selectable option belonging to a mutually exclusive
-        set. It is either selected or unselected, carries a label, and cannot be
-        unselected by activating it again.
+        A radio is one option in a set where only one can be picked. It is
+        either picked or not, has a label, and can't be un-picked by clicking
+        it again; picking another option is the only way to change it.
+
+    group:
+        A radio always belongs to a RadioGroup, which decides which radio is
+        picked. A radio on its own has no meaning.
+
+    label:
+        A radio has a name, usually shown as a label next to it. Clicking the
+        label works the same as clicking the radio.
+
+    disabled:
+        A disabled radio can't be picked, and it's clear to the user that it's
+        unavailable. If it was already picked, it stays picked.

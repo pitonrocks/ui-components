@@ -1,9 +1,36 @@
 use /lib/UiComponent
 
+from /behaviors/Dismissal import Dismissal
+from /behaviors/Positioning import Positioning
+
 export ui-component Popover:
     description:
-        A popover is a transient surface layered above the content and anchored to
-        a trigger element. It positions itself relative to that anchor, shifting or
-        flipping to stay within the visible bounds, and dismisses on outside
-        interaction, cancellation, or loss of focus. It does not block interaction
-        with the content beneath it.
+        A popover is a panel that pops up above the page, attached to the thing
+        that opened it, such as a button. The rest of the page stays usable
+        while it's open.
+
+    behaviors:
+        - @{Positioning}
+        - @{Dismissal}
+
+    opening:
+        The component using the popover decides what opens it, usually
+        pressing the thing it's attached to. That thing tells assistive tools
+        whether the popover is open.
+
+    focus:
+        The component decides whether focus moves into the popover when it
+        opens. A popover holding a small form moves focus into it. A Combobox's
+        list leaves focus in the text box.
+
+    closing:
+        It closes the ways Dismissal describes: Escape, clicking outside, or
+        focus moving away. Focus then goes back to whatever opened it.
+
+    content:
+        Anything the component puts in it. It may show a small arrow pointing
+        at the thing it's attached to.
+
+    nonGoals:
+        - It doesn't block the rest of the page. A panel that does is a dialog
+        - It doesn't open on hover. A hint that appears on hover is a tooltip

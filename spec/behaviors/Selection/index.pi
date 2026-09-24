@@ -1,0 +1,38 @@
+use /lib/UiBehavior
+
+export ui-behavior Selection:
+    description:
+        Selection keeps track of which items in a list the user has picked,
+        and what picking one does to the others.
+
+    modes:
+        A list lets the user pick nothing, one item, or any number of items.
+        This is set once for the list and does not change while it is in use.
+
+    single:
+        Picking an item replaces whatever was picked before. Whether picking
+        the already-picked item un-picks it is up to the component. If the
+        list must always have a value, it can't be un-picked.
+
+    multiple:
+        Picking an item adds it, or removes it if it was already picked, and
+        leaves the others alone. Holding Shift (or the platform's equivalent)
+        while picking selects every item between that one and the last item
+        picked without Shift. The user can also select every item at once.
+        Which keys do this is up to the chosen library and platform.
+
+    disabledItems:
+        The user can't pick or un-pick a disabled item, and Shift-selecting or
+        selecting everything skips over it. A disabled item that was already
+        picked stays picked. The component itself can still change it.
+
+    focusVersusSelection:
+        Where focus is and what is picked are separate. Moving through the
+        list with the keyboard does not pick anything unless the component
+        says it should. A radio group is the usual example of one that does.
+
+    nonGoals:
+        - Picks don't outlive the items. If an item is removed from the list,
+            it is no longer picked
+        - No limits on how many items can be picked. "Pick at most three" is a
+            rule for the component or form to check

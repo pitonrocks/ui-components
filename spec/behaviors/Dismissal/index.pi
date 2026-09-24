@@ -1,0 +1,38 @@
+use /lib/UiBehavior
+
+export ui-behavior Dismissal:
+    description:
+        Dismissal is how a popup, menu, or other temporary panel gets closed.
+        The component that opens the panel is in charge of closing it, not the
+        panel itself.
+
+    triggers:
+        A panel closes when the user presses Escape (or the platform's cancel
+        key), clicks or taps outside it, or moves focus to something outside
+        it. Any one of these is enough on its own. All three are on by
+        default, but the component can turn any of them off, for example to
+        stop a click outside from closing a panel with unsaved changes. How
+        they are turned off is up to the chosen library.
+
+    reporting:
+        The component is told what closed the panel, so it can react
+        differently. For example, it might keep what the user typed when focus
+        moves away, but throw it away when they press Escape.
+
+    focusReturn:
+        When the panel closes, focus goes back to whatever opened it. The
+        exception is when the panel closed because the user moved focus
+        somewhere else on purpose; focus stays where they put it. If the thing
+        that opened the panel is gone or can't take focus, the component picks
+        somewhere else. Focus is never left pointing at nothing.
+
+    ordering:
+        When panels are open on top of each other, Escape closes only the top
+        one. Clicking inside a lower panel closes everything above it and
+        leaves that panel open. Clicking outside all of them closes them all.
+        Whether that click also reaches whatever is underneath is up to the
+        chosen library.
+
+    nonGoals:
+        - Scrolling does not close a panel. The panel moves with the thing it
+            is attached to, so there is no reason to close it

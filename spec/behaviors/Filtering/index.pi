@@ -1,52 +1,66 @@
-use ../../lib/UiBehavior
+use /lib/UiBehavior
 
 export ui-behavior Filtering:
     description:
-        Filtering narrows a set of options to those matching a query and orders
-        what remains. It sits between a text input and the surface rendering the
-        results, and belongs to the component owning both rather than to either
-        one of them.
+        Filtering narrows a list of options down to the ones that match what
+        the user typed, and puts them in order. It sits between a text box and
+        the list of results, and belongs to the component that has both.
 
     query:
-        The text the user has entered. An empty query matches every option and
-        preserves the source order.
+        The text the user has typed. If it is empty, every option is shown in
+        its original order.
 
     matching:
-        An option matches when the normalised query occurs anywhere within its
-        normalised label as a contiguous substring. Prefix matching and
-        subsequence matching are deliberate alternatives to this rule, not
-        variations to be selected per component.
+        An option matches if the typed text appears anywhere in its label, as
+        one unbroken piece. Typing `ran` matches `Orange`. Matching only the
+        start of the label, or letters scattered through it, are different
+        rules altogether, not settings a component can switch to.
+
+    matchText:
+        By default an option is matched on its label. The component can supply
+        other text to match on instead, such as the label plus some
+        alternative names, so that `USA` finds `United States`.
 
     normalisation:
-        Query and label are compared case-insensitively and with diacritics
-        removed, so `cafe` matches `Café`. Whitespace surrounding the query is
-        ignored; whitespace within it is significant.
+        Upper and lower case are treated the same, and accents are ignored, so
+        `cafe` matches `Café`. Spaces at the start or end of what was typed are
+        ignored; spaces in the middle count.
 
     ordering:
-        Matches are ordered by the position at which they matched, earliest
-        first, with ties broken by the order of the source. Matching options are
-        not reordered on any other basis.
+        Options where the match appears earlier in the label come first. Ties
+        keep their original order. Nothing else affects the order.
+
+    groups:
+        If the options are in groups, the groups are dropped while the user is
+        searching and all matches are shown as one list. The groups come back
+        when the search is cleared.
+
+    disabledOptions:
+        Disabled options are matched like any other and still appear in the
+        results, shown as disabled. Options that are already selected are also
+        matched like any other; whether to hide them or keep them at the top
+        is up to the component.
 
     matchPositions:
-        A match reports the range it occupied within the label, so that whatever
-        renders the result can emphasise it. A matcher returning only a boolean
-        cannot support this and does not satisfy the contract.
+        Each match says where in the text it was found, so the matching part
+        can be highlighted. Knowing only that an option matched, and not
+        where, is not enough.
 
     emptyResult:
-        A query matching nothing yields an empty result rather than falling back
-        to the unfiltered set. What to render in that case is the owning
-        component's decision.
+        If nothing matches, the result is empty. It does not fall back to
+        showing everything. What to show instead, such as "No results", is up
+        to the component.
 
     source:
-        The option set is synchronous and known in full at the time of the
-        query. Sourcing options remotely is a separate concern, carrying
-        debouncing, cancellation, and loading and error states, and is not part
-        of this behaviour.
+        All the options are already available when the user types. Fetching
+        options from a server as the user types is a separate problem, with
+        its own concerns like waiting, cancelling, loading and errors, and is
+        not covered here.
 
     nonGoals:
-        - No subsequence or fuzzy matching. It requires a ranking function to be
-          usable, which is a larger decision than this behaviour should make on
-          a component's behalf
-        - No automatic highlighting of the first match. Whether Enter selects
-          without an explicit move through the results belongs to the owning
-          component
+        - No fuzzy matching, where `apl` would find `Apple`. It only works well
+            with a way of ranking results, which is a bigger decision than this
+            behaviour should make
+        - The first result is not highlighted automatically. Whether pressing
+            Enter picks the top result without the user moving to it is up to
+            the component

@@ -2,6 +2,23 @@ use /lib/UiComponent
 
 export ui-component TextArea:
     description:
-        A text area is a control that accepts multiple lines of free-form text.
-        It holds a current value and either scrolls within a fixed height or
-        grows to fit its content.
+        A text area is a box for typing several lines of text, such as a
+        comment or a description. It either stays a fixed height and scrolls,
+        or grows to fit what's typed.
+
+    lines:
+        Pressing Enter starts a new line. Pressing Tab moves focus out of the
+        text area, as it does everywhere else, rather than typing a tab.
+
+    height:
+        The component chooses a fixed height, or a height that grows with the
+        text. A growing text area can have a maximum height, after which it
+        scrolls. Whether the user can drag to resize it is up to the chosen
+        library.
+
+    common:
+        Its label, placeholder, help text, error message, length limit, and
+        disabled and read-only states work the same way as a TextField's.
+
+    nonGoals:
+        - No formatting, such as bold or lists. That's a rich text editor

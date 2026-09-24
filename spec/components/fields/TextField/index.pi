@@ -2,7 +2,44 @@ use /lib/UiComponent
 
 export ui-component TextField:
     description:
-        A text field is a control that accepts a single line of free-form text.
-        It holds a current value, supports placeholder text, and can constrain
-        or mask its input for specialised content such as passwords, numbers, or
-        search terms.
+        A text field is a box for typing a single line of text. It can show a
+        hint while empty, and can be set up for special kinds of text such as
+        passwords, email addresses, or searches.
+
+    label:
+        A text field always has a name, normally shown as a visible label. The
+        hint shown while it's empty (the placeholder) is not a label and
+        disappears as soon as the user types.
+
+    value:
+        The text the user has typed. The component using the field is told
+        each time it changes, and can also set it.
+
+    kinds:
+        The field can be marked as a particular kind of text, such as a
+        password, email address, phone number, web address, or search. This
+        lets the platform help, for example by showing a suitable on-screen
+        keyboard, or hiding a password as it's typed. Which kinds exist, and
+        how each is handled, is up to the chosen library.
+
+    restrictions:
+        The component can limit what can be typed, such as a maximum length
+        or only certain characters.
+
+    helpAndErrors:
+        The field can show help text, and an error message when what was
+        typed isn't valid. Both are linked to the field so assistive tools read
+        them out with it. Deciding what's valid is up to the component or
+        form, not the field.
+
+    extras:
+        The field can show something fixed before or after the text, such as a
+        currency sign or unit, and may have a button to clear it.
+
+    disabled:
+        A disabled field can't be focused or changed. A read-only field can't
+        be changed, but can still be focused, and its text selected and copied.
+
+    nonGoals:
+        - Only one line. For several lines, use a TextArea
+        - It doesn't decide what's valid. It only shows the error it's given

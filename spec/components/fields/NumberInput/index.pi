@@ -1,7 +1,45 @@
 use /lib/UiComponent
 
+from /components/fields/TextField import TextField
+
 export ui-component NumberInput:
     description:
-        A number input is a text field constrained to numeric values. It holds a
-        current value and validates it against a minimum, maximum, step, and
-        precision.
+        A number input is a text field for typing a number, such as a quantity
+        or a price. It can have a minimum and maximum, a step size, and a set
+        number of decimal places.
+
+    composes:
+        - @{TextField}
+
+    typing:
+        While typing, the user can enter anything that could become a number,
+        including half-finished input like `-` or `3.`. The number is checked
+        when they finish, by leaving the field or pressing Enter. It is then
+        brought within the minimum and maximum, rounded to the step size and
+        number of decimal places, and shown in its tidied-up form.
+
+    empty:
+        The field can be left empty, meaning no number, unless the component
+        requires one. Empty is not the same as zero.
+
+    keyboard:
+        The Up and Down arrow keys raise and lower the number by one step, and
+        never go past the minimum or maximum. Page Up and Page Down move by a
+        bigger step. Home and End jump to the minimum and maximum, if there
+        are any.
+
+    buttons:
+        It may show buttons to raise and lower the number. Whether it does is
+        up to the chosen library.
+
+    locale:
+        The number is shown and read using the user's local conventions, such
+        as `1,234.5` or `1.234,5`.
+
+    scrolling:
+        Scrolling the mouse wheel over the field doesn't change the number, so
+        scrolling the page can't change it by accident.
+
+    nonGoals:
+        - Not for things that are made of digits but aren't amounts, such as
+            phone numbers, card numbers, or postcodes. Those are TextFields

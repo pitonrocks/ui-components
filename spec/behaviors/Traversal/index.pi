@@ -1,0 +1,41 @@
+use /lib/UiBehavior
+
+export ui-behavior Traversal:
+    description:
+        Traversal lets the user move between the items of a list, grid, or
+        group with the keyboard, without leaving it.
+
+    movement:
+        In something that runs one way, like a list, the arrow keys in that
+        direction move to the previous and next item. Home and End go to the
+        first and last item. In a list that scrolls, Page Up and Page Down move
+        about one screenful.
+
+        In something that runs both ways, like a calendar or a grid of colour
+        swatches, Left and Right move along a row and Up and Down move between
+        rows. Home and End go to the start and end of the row. Anything beyond
+        that follows the WAI-ARIA Authoring Practices grid pattern.
+
+    tabStop:
+        Pressing Tab moves into the whole group in one step, and pressing it
+        again moves out. Tabbing in lands on the item the user was last on, so
+        they pick up where they left off.
+
+    bounds:
+        Whether the arrow keys stop at the first and last item, or wrap around
+        to the other end, follows the WAI-ARIA Authoring Practices for that kind
+        of component. Radio groups and tabs wrap. Lists, trees and grids stop,
+        so the user can tell they have reached the end. Menus and toolbars can
+        do either, and the component decides.
+
+    disabledItems:
+        Whether the arrow keys land on a disabled item or skip over it also
+        follows the WAI-ARIA Authoring Practices. Menus and lists land on
+        disabled items, so screen reader users know the option exists. Radio
+        groups skip them. Either way, a disabled item can't be used.
+
+    typeAhead:
+        Typing a letter jumps to the next item whose label starts with it.
+        Typing several letters quickly matches the whole word typed. Nothing
+        is hidden, which is what makes this different from Filtering.
+        Components that already have a search box leave typing to that box.

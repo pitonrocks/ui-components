@@ -1,0 +1,37 @@
+use /lib/UiBehavior
+
+export ui-behavior Positioning:
+    description:
+        Positioning places a popup next to the thing it belongs to, such as a
+        dropdown under its button, and keeps it on screen. It belongs to the
+        component that has both the popup and the thing it's attached to.
+
+    placement:
+        The component says where it would like the popup, such as below the
+        button and lined up with its left edge. This is a preference, not a
+        promise. The component also decides whether the popup must be at least
+        as wide as the thing it's attached to, as a Select's list of options
+        usually is.
+
+    collision:
+        If the popup would run off the edge of the screen, it slides sideways
+        to stay on screen. If that isn't enough, it moves to the other side,
+        such as opening above instead of below. If it fits on neither side, it
+        stays where it was asked to go, gets shorter, and its contents scroll.
+        How it is made shorter is up to the chosen library.
+
+    tracking:
+        The popup moves with the thing it's attached to, whether the page
+        scrolls, the window resizes, or the layout changes. It is never left
+        behind in the wrong place. If the thing it's attached to scrolls out
+        of view, the popup is hidden with it but stays open, and reappears when
+        it scrolls back.
+
+    reporting:
+        The component is told where the popup actually ended up, such as above
+        instead of below. That lets it point an arrow the right way, or animate
+        the popup in from the right edge.
+
+    nonGoals:
+        - The popup is never moved next to something else. When nothing fits,
+            it stays with the thing it was attached to

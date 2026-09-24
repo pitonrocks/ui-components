@@ -2,6 +2,27 @@ use /lib/UiComponent
 
 export ui-component Rating:
     description:
-        A rating is a control that holds a score on a small fixed scale,
-        rendered as a row of repeated symbols. It may be interactive or
-        read-only, and may support fractional values.
+        A rating shows a score on a small scale as a row of symbols, usually
+        five stars. It can let the user give a score, or just show one.
+
+    scale:
+        The number of symbols is fixed, usually five. A score can be whole
+        symbols only, or allow halves or smaller parts.
+
+    interactive:
+        The user clicks a symbol to give that score. Hovering previews the
+        score before clicking. From the keyboard it is one stop in the Tab
+        order, and the arrow keys raise and lower the score by one step.
+
+    noScore:
+        Having no score is different from a score of zero. The component
+        decides whether the user can clear their score; if they can, clicking
+        the current score again clears it.
+
+    readOnly:
+        A read-only rating just shows a score, such as an average of 4.3. It
+        can show part of a symbol filled. Assistive tools read it out as text,
+        such as "4.3 out of 5".
+
+    name:
+        A rating has a name saying what is being rated.

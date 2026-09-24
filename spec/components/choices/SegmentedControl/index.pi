@@ -1,7 +1,37 @@
 use /lib/UiComponent
 
+from /behaviors/Selection import Selection
+from /behaviors/Traversal import Traversal
+
 export ui-component SegmentedControl:
     description:
-        A segmented control is a row of joined options bound to a single value,
-        with every option visible at once. Selecting a segment makes it the
-        current value and deselects the previous one.
+        A segmented control is a row of joined buttons where exactly one is
+        picked, like "Day | Week | Month". Every option is visible at once.
+        Picking a segment makes it the current value and un-picks the one
+        before.
+
+    behaviors:
+        - @{Selection}
+        - @{Traversal}
+
+    value:
+        Exactly one segment is always picked. Clicking the picked segment again
+        does nothing.
+
+    content:
+        Each segment shows a label, an icon, or both. A segment with only an
+        icon still has a name that assistive tools can read out.
+
+    keyboard:
+        It works like a RadioGroup. Tab moves into the control in one step,
+        landing on the picked segment. The arrow keys move between segments and
+        pick them as they go, wrapping around at the ends and skipping disabled
+        segments.
+
+    size:
+        Meant for a handful of short options, usually two to five. Longer lists
+        belong in a Select or RadioGroup.
+
+    nonGoals:
+        - Not for switching between pages or panels of content. That's tabs
+        - Not for picking several options. A row of ToggleButtons does that

@@ -2,7 +2,32 @@ use /lib/UiComponent
 
 export ui-component Checkbox:
     description:
-        A checkbox is a control that holds a selected or unselected state, and
-        optionally an indeterminate state representing a partial selection
-        among its descendants. Activating it toggles between selected and
-        unselected, and it carries an optional label naming what it controls.
+        A checkbox is a box the user ticks or unticks. It can also show a third
+        "partly checked" state, such as a "select all" box when only some of
+        the items under it are ticked.
+
+    states:
+        Checked, unchecked, or partly checked. Only the component using the
+        checkbox can set it to partly checked; the user never can. Clicking a
+        partly checked box makes it checked.
+
+    label:
+        A checkbox has a name saying what it controls, usually shown as a label
+        next to it. Clicking the label works the same as clicking the box.
+
+    activation:
+        The user ticks it the usual way for the platform: clicking, tapping, or
+        using the keyboard. Which keys do this is up to the chosen library.
+
+    disabled:
+        A disabled checkbox can't be changed, and it's clear to the user that
+        it's unavailable. It keeps showing its current state.
+
+    independence:
+        Each checkbox is its own yes-or-no choice. Ticking one never unticks
+        another. Choices where only one can be picked are a RadioGroup.
+
+    nonGoals:
+        - Not meant for settings that take effect the moment they're changed.
+            That's usually a Switch. A checkbox is usually part of a form that
+            is saved later

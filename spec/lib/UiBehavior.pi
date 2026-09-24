@@ -1,2 +1,2 @@
-export anchor UiBehavior as ui-behavior:
-    pass
+export abstract anchor UiBehavior as ui-behavior:
+    description:: string

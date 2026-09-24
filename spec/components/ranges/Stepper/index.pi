@@ -2,6 +2,27 @@ use /lib/UiComponent
 
 export ui-component Stepper:
     description:
-        A stepper is a control that changes a numeric value by a fixed increment
-        through paired increase and decrease actions. It respects a minimum and
-        a maximum, disabling each action at its bound.
+        A stepper changes a number up or down by a fixed amount using a pair
+        of buttons, such as − and + next to a quantity. It stays between a
+        minimum and a maximum, and each button is disabled at its end.
+
+    value:
+        It shows the current number. Typing a number in directly is a
+        NumberInput, not a stepper.
+
+    pointer:
+        Pressing a button changes the number by one step. Holding it down keeps
+        changing it until the user lets go.
+
+    keyboard:
+        The stepper is a single stop in the Tab order, not one per button. Once
+        focused, the Up and Down arrow keys raise and lower the number. Home
+        and End jump to the minimum and maximum.
+
+    bounds:
+        At the minimum, the decrease button is disabled; at the maximum, the
+        increase button is. The number never goes past either.
+
+    name:
+        The stepper has a name saying what it counts, such as "Guests".
+        Assistive tools read out the new number each time it changes.

@@ -2,6 +2,37 @@ use /lib/UiComponent
 
 export ui-component Link:
     description:
-        A link is an interactive text or inline element that navigates to
-        another location, within the application or outside it. It exposes its
-        destination and may open it in the current context or a new one.
+        A link takes the user somewhere else, either another place in the app
+        or outside it. It is usually text, and may sit in the middle of a
+        sentence.
+
+    destination:
+        A link always has a destination, and the user can find out where it
+        goes before following it, such as by hovering over it. How that is
+        shown is up to the chosen library and platform.
+
+    content:
+        Usually text, sometimes with an icon. Its name says where it goes,
+        well enough to make sense read out on its own. "Read the pricing
+        guide" works; "click here" doesn't.
+
+    activation:
+        The user follows a link the usual way for the platform: clicking,
+        tapping, or pressing Enter. Which keys do this is up to the chosen
+        library.
+
+    newContext:
+        The component using the link decides whether it opens in the current
+        view or a new one, such as a new tab or window. Opening somewhere new
+        is made clear to the user. The user can still choose for themselves
+        wherever the platform lets them, such as by middle-clicking.
+
+    visited:
+        Whether a link shows that it has already been followed is up to the
+        chosen library.
+
+    nonGoals:
+        - Links don't perform actions. Something that does a thing rather than
+            going somewhere is a Button, even if it looks like a link
+        - No disabled state. A link with nowhere to go should be shown as plain
+            text instead

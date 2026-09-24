@@ -1,8 +1,38 @@
 use /lib/UiComponent
 
+from /components/buttons/Button import Button
+
 export ui-component FloatingActionButton:
     description:
-        A floating action button is a button layered above the content at a
-        fixed position, styled with high visual prominence. It represents a
-        single primary action and remains visible as the content beneath it
-        scrolls.
+        A floating action button is a prominent button that floats above the
+        content in a fixed spot, such as the bottom corner of the screen. It is
+        for the one main action on that screen, and stays put while the content
+        scrolls underneath it.
+
+    composes:
+        - @{Button}
+
+    content:
+        The same as any button: a label, an icon, or both.
+
+    placement:
+        It is fixed to the screen or view, not to the content, so it stays in
+        the same spot and within reach while the content scrolls. It doesn't
+        use Positioning, which is for popups attached to something.
+
+    overlap:
+        It never permanently hides anything. The view leaves enough room that
+        the user can still reach whatever is underneath it.
+
+    order:
+        Its place in the Tab order, and the order a screen reader reads it in,
+        depends on what it does in the view, not where it is drawn. The view
+        decides where that is.
+
+    nonGoals:
+        - It doesn't open into several actions. That's a "speed dial", which is
+            a separate component
+        - It doesn't hide itself while scrolling. Whether it does is up to the
+            library or the app
+        - There's no hard rule of one per screen. That's advice on how to use
+            it, not something the component enforces
