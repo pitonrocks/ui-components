@@ -1,0 +1,61 @@
+use ../../lib/UiBehavior
+
+export ui-behavior FormParticipation:
+    description:
+        FormParticipation lets a control's value take part in a surrounding
+        form, just as the platform's own form fields do. It belongs to the
+        control, and matters most for controls that are built from scratch
+        rather than being a form field underneath, such as a Slider or a
+        Select.
+
+    name:
+        The control can be given a name. With a name, its value is sent with
+        the form under that name. Without one, the control takes no part in
+        sending the form.
+
+    submission:
+        The value is sent as text, just as the platform's own field of the
+        same kind would send it. A control holding several values, such as a
+        range with two ends, sends each under the same name. A control with no
+        value sends nothing, as an unticked checkbox sends nothing. How a value
+        with no obvious text form, such as a colour or a drawing, is turned
+        into text is up to the chosen library.
+
+    form:
+        The control belongs to the form it sits inside. It can also be tied to
+        a form elsewhere on the page.
+
+    reset:
+        When the form is reset, the control goes back to the value it started
+        with, which is not necessarily empty, and the component using it is
+        told.
+
+    required:
+        A control can be required, and assistive tools are told that it is.
+        Whether sending the form with a required control left empty is
+        stopped by the platform or checked by the form is up to the chosen
+        library.
+
+    invalid:
+        The component or form can mark the control as invalid, usually after
+        checking it. The control shows that it is invalid, and assistive tools
+        are told, along with any error message that goes with it.
+
+    disabled:
+        A disabled control can't be changed and its value isn't sent. A
+        control is also disabled when a group of fields around it is disabled
+        as a whole.
+
+    readOnly:
+        A read-only control can't be changed, but can still be focused and
+        copied from, and its value is still sent.
+
+    autofill:
+        Whether the platform can fill the control in for the user, such as with
+        a saved address, is up to the chosen library.
+
+    nonGoals:
+        - It doesn't decide what's valid, or when to show errors. That belongs
+            to the form
+        - It doesn't send the form. It only makes the value available when the
+            form is sent

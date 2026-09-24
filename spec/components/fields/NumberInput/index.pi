@@ -1,5 +1,6 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/Dragging import Dragging
 from ../TextField import TextField
 
 export ui-component NumberInput:
@@ -11,12 +12,23 @@ export ui-component NumberInput:
     composes:
         - @{TextField}
 
+    behaviors:
+        - @{Dragging}
+
     typing:
         While typing, the user can enter anything that could become a number,
         including half-finished input like `-` or `3.`. The number is checked
-        when they finish, by leaving the field or pressing Enter. It is then
-        brought within the minimum and maximum, rounded to the step size and
-        number of decimal places, and shown in its tidied-up form.
+        when they finish, by leaving the field or pressing Enter. By default it
+        is then brought within the minimum and maximum, rounded to the step
+        size and number of decimal places, and shown in its tidied-up form.
+        The component can instead keep a number that is out of range and mark
+        it as not valid.
+
+    reporting:
+        The component is told each time the number changes, and again once
+        when the user finishes, so it can act only on the finished number. If
+        what was typed can't be read as a number, the component is told, and
+        the field is marked as not valid until it is fixed.
 
     empty:
         The field can be left empty, meaning no number, unless the component
@@ -26,19 +38,29 @@ export ui-component NumberInput:
         The Up and Down arrow keys raise and lower the number by one step, and
         never go past the minimum or maximum. Page Up and Page Down move by a
         bigger step. Home and End jump to the minimum and maximum, if there
-        are any.
+        are any. Assistive tools read out the new number each time it changes.
 
     buttons:
         It may show buttons to raise and lower the number. Whether it does is
-        up to the chosen library.
+        up to the chosen library. If it does, they work like a Stepper's:
+        holding one down keeps changing the number, and each is disabled at
+        its end. They are not extra stops in the Tab order, and pressing them
+        leaves focus in the field.
+
+    scrubbing:
+        The component can let the user change the number by dragging
+        sideways across a handle, such as the field's label, as in design
+        tools. The keyboard keys above do the same job. Whether this is
+        offered is up to the chosen library.
 
     locale:
         The number is shown and read using the user's local conventions, such
         as `1,234.5` or `1.234,5`.
 
     scrolling:
-        Scrolling the mouse wheel over the field doesn't change the number, so
-        scrolling the page can't change it by accident.
+        By default, scrolling the mouse wheel over the field doesn't change the
+        number, so scrolling the page can't change it by accident. The
+        component can turn wheel changes on for a field that has focus.
 
     nonGoals:
         - Not for things that are made of digits but aren't amounts, such as

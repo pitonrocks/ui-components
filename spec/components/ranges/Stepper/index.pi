@@ -1,10 +1,17 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/Announcement import Announcement
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component Stepper:
     description:
         A stepper changes a number up or down by a fixed amount using a pair
         of buttons, such as − and + next to a quantity. It stays between a
         minimum and a maximum, and each button is disabled at its end.
+
+    behaviors:
+        - @{FormParticipation}
+        - @{Announcement}
 
     value:
         It shows the current number. Typing a number in directly is a
@@ -25,4 +32,9 @@ export ui-component Stepper:
 
     name:
         The stepper has a name saying what it counts, such as "Guests".
-        Assistive tools read out the new number each time it changes.
+        Assistive tools read out the new number each time it changes, without
+        focus moving.
+
+    disabled:
+        A disabled stepper can't be changed or focused, and both buttons are
+        disabled. It keeps showing its number.

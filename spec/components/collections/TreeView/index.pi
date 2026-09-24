@@ -1,0 +1,88 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+from ../../../behaviors/Virtualisation import Virtualisation
+from ../../fields/TextField import TextField
+from ../../toggles/Checkbox import Checkbox
+
+export ui-component TreeView:
+    description:
+        A tree view shows items nested inside other items, like folders and
+        files. Items that hold others are branches, and the user can open and
+        close them to show or hide what's inside. The user can move through it
+        with the keyboard and, if the component allows it, pick items.
+
+    composes:
+        - @{Checkbox}
+        - @{TextField}
+
+    behaviors:
+        - @{Traversal}
+        - @{Selection}
+        - @{Virtualisation}
+
+    items:
+        Each item has a name that assistive tools can read out. Assistive
+        tools are also told how deep it is, its position among the items
+        beside it, and, for a branch, whether it is open. How deep an item is
+        is shown on screen too, usually by indenting it. What else an item
+        shows, such as an icon, is up to the component using the tree.
+
+    opening:
+        Pressing a branch's open-and-close control opens or closes it. The
+        component decides whether pressing anywhere on the branch does the
+        same. Closing a branch remembers which branches inside it were open, so
+        they are open again when it reopens. If focus was inside a branch that
+        closes, it moves to that branch.
+
+    keyboard:
+        Up and Down move through the items that can be seen, passing over
+        anything inside a closed branch. Right opens a closed branch, or moves
+        into an open one. Left closes an open branch, or moves out to the
+        branch holding the current item. Home and End go to the first and last
+        item that can be seen, without opening or closing anything. A key such
+        as the asterisk opens every branch beside the current one; which key is
+        up to the chosen library.
+
+    typeAhead:
+        Typing letters jumps to the next item that can be seen whose name
+        starts with what was typed. Items inside closed branches are not
+        searched.
+
+    picking:
+        The component decides whether the tree lets the user pick nothing, one
+        item, or several, as Selection describes. Branches can be picked like
+        any other item. Picking a branch doesn't pick what's inside it.
+
+    checking:
+        The component can give each item a Checkbox instead, as a separate
+        thing from picking. Checking a branch checks everything inside it,
+        and a branch where only some of what's inside is checked shows as
+        partly checked.
+
+    loadingOnDemand:
+        A branch's contents can be fetched the first time it is opened,
+        instead of all at once. While they load, the branch shows that it is
+        busy. The component can say how many items a branch will have before
+        they arrive. If loading fails, the branch stays closed, the component
+        is told, and opening it again tries again.
+
+    renaming:
+        The component can let the user rename items in place. A key such as
+        F2 turns the item's name into a TextField. Enter or moving away saves
+        the new name, and Escape puts back the old one. Spaces at either end
+        are trimmed, and a blank name is refused. The component decides which
+        items can be renamed, can refuse a new name, and is told the name that
+        was saved.
+
+    disabled:
+        Disabled items are shown but can't be picked, opened, or renamed.
+
+    long:
+        Virtualisation is only switched on for trees long enough to need it.
+
+    nonGoals:
+        - No dragging items to move them between branches
+        - No columns. Nested rows of data with column headings are a tree table
+        - No searching that hides items. Typing only moves focus

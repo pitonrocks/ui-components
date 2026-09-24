@@ -1,0 +1,91 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+from ../../buttons/Button import Button
+from ../Popover import Popover
+
+export ui-component Menu:
+    description:
+        A menu is a list of actions that pops up from a button, such as "Edit,
+        Duplicate, Delete" behind a "More" button. Picking an item does it and
+        closes the menu. Items can also be options that are ticked on and off,
+        and can open further menus of their own.
+
+    composes:
+        - @{Button}
+        - @{Popover}
+
+    behaviors:
+        - @{Traversal}
+        - @{Selection}
+
+    opening:
+        Pressing the button opens the menu. From the keyboard, Enter, Space or
+        Down opens it with the first item current, and Up opens it with the
+        last item current. The button tells assistive tools that it opens a
+        menu, and whether it's open. Several buttons can share one menu.
+
+    focus:
+        While the menu is open, the keyboard works on the menu. Either focus
+        moves onto the current item, or it stays on the menu while the current
+        item is highlighted; either way assistive tools are told which item
+        is current. Which of these is up to the chosen library. Pointing at an
+        item makes it current too.
+
+    moving:
+        Up and Down move between items, and Home and End go to the first and
+        last, as Traversal describes. Whether they wrap round at the ends is up
+        to the component. Typing letters jumps to the next item starting with
+        them. Disabled items can be landed on but not used. Group headings and
+        separators are passed over.
+
+    items:
+        Each item has a label, and may have an icon and a hint of its keyboard
+        shortcut. An item can do something, or take the user somewhere, like a
+        Link. Pressing Enter or Space on the current item, or clicking an item,
+        uses it. The component is told which item was used.
+
+    closing:
+        Using an action item closes the menu and puts focus back on the button,
+        unless the component keeps the menu open. It also closes the ways
+        Dismissal describes. Pressing Tab closes it and moves on from the
+        button, as if it had never opened.
+
+    groups:
+        Items can be put in groups, each with a heading, and divided by
+        separators. Headings and separators can't be used.
+
+    checkboxItems:
+        An item can be an option that is ticked or unticked, such as "Show
+        grid". Using it flips it, independently of the others. It shows whether
+        it's ticked, and tells assistive tools.
+
+    radioItems:
+        A group of items can be a set where one is picked, such as a sort order.
+        Using one picks it and un-picks the one before, as Selection describes
+        for picking one item. Using the picked one again leaves it picked.
+
+    optionClosing:
+        Whether using a ticked or picked item closes the menu is up to the
+        component, so the user can change several at once.
+
+    submenus:
+        An item can open a further menu beside it, and shows that it does.
+        Right, Enter or Space opens it and makes its first item current, and
+        Left or Escape closes it and goes back to the item that opened it. For
+        right-to-left languages, Left and Right swap. Pointing at the item
+        opens it after a moment. Moving the pointer diagonally towards the
+        open submenu, across other items, doesn't close it.
+
+    submenuClosing:
+        Using an action item anywhere closes every open menu at once. Escape
+        closes only the innermost one. Clicking outside them all closes them
+        all.
+
+    nonGoals:
+        - Not for picking a value that is then shown, like a country. That's a
+            Select
+        - Not a menu bar, the row of menus along the top of an application
+        - Not a site's navigation. A list of links to other pages is a list of
+            Links

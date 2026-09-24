@@ -14,12 +14,22 @@ export ui-component DropZone:
     dragging:
         While files are dragged over it, the zone changes to show it's ready.
         If they won't be accepted, such as the wrong kind of file, it shows
-        that instead, before the user lets go.
+        that instead, before the user lets go. A disabled or read-only zone
+        doesn't react to files dragged over it.
 
     dropping:
         Dropped files are checked against the same limits as a FilePicker:
         which kinds of file, and one or several. The component is told which
         files were accepted, and which were turned away and why.
+
+    missedDrops:
+        Files dropped just outside the zone, elsewhere on the page, are ignored
+        rather than opened by the platform in place of the app, unless the
+        component says otherwise.
+
+    pasting:
+        If the component allows it, pasting files while the zone has focus
+        adds them as if they had been dropped.
 
     otherWays:
         Dragging and dropping can't be done from the keyboard, and isn't

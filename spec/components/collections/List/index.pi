@@ -1,12 +1,13 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/Filtering import Filtering
 from ../../../behaviors/Selection import Selection
 from ../../../behaviors/Traversal import Traversal
 from ../../../behaviors/Virtualisation import Virtualisation
 
 export ui-component List:
     description:
-        A list shows a series of items stacked one after another, each on its
+        A list shows a series of items one after another, usually each on its
         own row. The user can move through it with the keyboard and, if the
         component allows it, pick one or more items.
 
@@ -14,6 +15,7 @@ export ui-component List:
         - @{Traversal}
         - @{Selection}
         - @{Virtualisation}
+        - @{Filtering}
 
     items:
         Each item has a name that assistive tools can read out. What else an
@@ -23,14 +25,34 @@ export ui-component List:
     picking:
         The component decides whether the list lets the user pick nothing, one
         item, or several. Clicking an item, or pressing the pick key on it,
-        picks it. Which key that is is up to the chosen library.
+        picks it. Which key that is is up to the chosen library. The component
+        can also have moving to an item with the arrow keys pick it, as
+        Selection describes. It is told whenever the picked items change, and
+        can change them itself.
+
+    layout:
+        Items are usually stacked top to bottom. They can also run across, and
+        then Left and Right move between them, reversed for right-to-left
+        languages. Or they can wrap into rows and columns, like a set of
+        pictures to choose from, and then the arrow keys move in both
+        directions as Traversal describes.
+
+    typeAhead:
+        Typing letters jumps to the next item whose name starts with what was
+        typed, as Traversal describes.
+
+    searching:
+        The component can put a search box above the list that narrows the
+        items as the user types, as Filtering describes. Typing then goes to
+        the box instead of jumping between items.
 
     groups:
         Items can be put in groups under headings. Headings can't be picked,
         and the arrow keys pass over them.
 
     disabled:
-        Disabled items are shown but can't be picked.
+        Disabled items are shown but can't be picked. The whole list can be
+        disabled too.
 
     empty:
         When there are no items, the component using the list decides what to
@@ -41,5 +63,7 @@ export ui-component List:
 
     nonGoals:
         - No items inside items. That's a tree
-        - No columns. Rows of data with column headings are a table
+        - No column headings. Rows of data under column headings are a table
         - No dragging to reorder
+        - Not a form field. What is picked isn't sent with a form; a Select or
+            RadioGroup is

@@ -1,0 +1,77 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../../behaviors/Presence import Presence
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+from ../../collections/List import List
+from ../../overlays/Popover import Popover
+
+export ui-component CascadeSelect:
+    description:
+        A cascade select lets the user pick one value from options arranged in
+        levels, such as a country, then a region, then a city. It works like a
+        Select, but choosing an option that has options under it opens the next
+        level beside it, until the user reaches the one they want.
+
+    composes:
+        - @{Popover}
+        - @{List}
+
+    behaviors:
+        - @{Selection}
+        - @{Traversal}
+        - @{FormParticipation}
+        - @{Presence}
+
+    value:
+        The value is the picked option together with the path to it, such as
+        Europe, France, Paris. When closed, it shows that path, or a
+        placeholder if there is no value. How the path is written out is up to
+        the component.
+
+    levels:
+        Opening it shows the top level as a list. Moving to an option that has
+        options under it opens that next level as another list beside it, and
+        so on. Only one branch is open at each level at a time. When it opens
+        with a value, the levels leading to that value are already open and it
+        is highlighted.
+
+    choosing:
+        By default only options with nothing under them can be picked, and
+        picking one sets the value and closes every level. The component can
+        also allow picking an option that has options under it. Escape closes
+        every level without changing the value, and focus goes back to the
+        cascade select.
+
+    keyboard:
+        Up and Down move through the current level, and Home and End go to its
+        first and last option. Right, or Enter, on an option with options under
+        it opens the next level and moves into it. Left goes back to the level
+        before and closes the one that was open. Left on the top level closes
+        the cascade select. For right-to-left languages, Left and Right swap.
+
+    pointer:
+        Clicking an option with options under it opens the next level. The
+        component decides whether just pointing at it does the same, as in a
+        menu. If it does, moving the pointer across to the new level doesn't
+        close it on the way.
+
+    placement:
+        Each new level appears beside the one before, and all of them are kept
+        on screen as Positioning describes. What happens when the levels are
+        too wide to fit side by side is up to the chosen library.
+
+    accessibility:
+        Assistive tools are told which level the highlighted option is in, and
+        whether it has options under it and if they are open.
+
+    options:
+        Disabled options are shown but can't be picked or opened. Typing
+        letters jumps to a matching option in the current level.
+
+    nonGoals:
+        - Not for picking several values
+        - No typing to search across all levels. That's a Combobox over a
+            flattened list
+        - Not a menu of commands. Its options are values, not actions

@@ -1,9 +1,14 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component Rating:
     description:
         A rating shows a score on a small scale as a row of symbols, usually
         five stars. It can let the user give a score, or just show one.
+
+    behaviors:
+        - @{FormParticipation}
 
     scale:
         The number of symbols is fixed, usually five. A score can be whole
@@ -12,7 +17,9 @@ export ui-component Rating:
     interactive:
         The user clicks a symbol to give that score. Hovering previews the
         score before clicking. From the keyboard it is one stop in the Tab
-        order, and the arrow keys raise and lower the score by one step.
+        order, and the arrow keys raise and lower the score by one step. Home
+        and End go to the lowest and highest score. Assistive tools read out
+        the score as the user changes it, such as "3 out of 5".
 
     noScore:
         Having no score is different from a score of zero. The component
@@ -23,6 +30,10 @@ export ui-component Rating:
         A read-only rating just shows a score, such as an average of 4.3. It
         can show part of a symbol filled. Assistive tools read it out as text,
         such as "4.3 out of 5".
+
+    disabled:
+        A disabled rating can't be changed or focused, and it's clear to the
+        user that it's unavailable. It keeps showing its score.
 
     name:
         A rating has a name saying what is being rated.

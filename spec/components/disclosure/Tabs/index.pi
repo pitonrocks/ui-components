@@ -1,0 +1,71 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Presence import Presence
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+
+export ui-component Tabs:
+    description:
+        Tabs split related content into panels that share one space, with a
+        row of tabs to switch between them, like "Overview | Reviews |
+        Specifications". Exactly one panel shows at a time.
+
+    behaviors:
+        - @{Selection}
+        - @{Traversal}
+        - @{Presence}
+
+    value:
+        Exactly one tab is selected, and its panel is the one showing. Clicking
+        the selected tab again does nothing. The component decides which tab
+        starts selected, can change it itself, and is told whenever the user
+        changes it.
+
+    content:
+        Each tab shows a label, an icon, or both. A tab with only an icon still
+        has a name that assistive tools can read out. Each panel is named by
+        its tab, and assistive tools know which tab controls which panel.
+
+    keyboard:
+        Tab moves into the row of tabs in one step, landing on the selected
+        tab. The arrow keys along the row move between tabs, wrapping around
+        at the ends, and Home and End go to the first and last. Pressing Tab
+        again moves into the showing panel: to the first thing in it that can
+        take focus, or to the panel itself if it holds nothing that can.
+
+    activation:
+        The component decides whether moving to a tab with the arrow keys also
+        selects it, or only moves focus, leaving the user to press Enter or
+        Space to select it. Selecting as focus moves suits panels that show
+        instantly. Waiting for a key press suits panels that are slow to show,
+        such as ones that load from a server.
+
+    orientation:
+        Tabs usually run across, above their panels, and then Left and Right
+        move between them, reversed for right-to-left languages. They can also
+        run down the side, and then Up and Down move between them.
+
+    disabled:
+        A disabled tab is shown but can't be selected, and the arrow keys skip
+        over it.
+
+    hiddenPanels:
+        Panels that aren't showing are hidden from everyone, including
+        assistive tools. Whether they stay rendered while hidden, keeping
+        things like half-typed text, is covered by Presence and decided by the
+        component.
+
+    addresses:
+        The component can tie each tab to an address, so that reloading or
+        sharing the page keeps the same tab selected. How is up to the chosen
+        library.
+
+    overflow:
+        Whether tabs that don't fit in the row scroll, wrap, or move into a
+        "more" list is up to the chosen library.
+
+    nonGoals:
+        - Not for picking a value. That's a SegmentedControl
+        - Not for moving between pages of a site. That's a NavigationMenu
+        - No closing, adding, or dragging tabs to reorder them, as in a web
+            browser

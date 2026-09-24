@@ -33,6 +33,19 @@ export ui-behavior Dismissal:
         Whether that click also reaches whatever is underneath is up to the
         chosen library.
 
+    nesting:
+        A panel opened from inside another counts as part of it, even if it is
+        drawn somewhere else on the page. Using it, or moving focus into it,
+        doesn't close the panel it came from. Closing a panel also closes any
+        panels opened from it. When a panel blocks the rest of the page, as
+        Modality describes, a click outside it never reaches what is
+        underneath.
+
+    trigger:
+        Clicking the thing that opened the panel doesn't count as clicking
+        outside. The component decides what that click does, usually closing
+        the panel, so it never closes and then opens again straight away.
+
     nonGoals:
         - Scrolling does not close a panel. The panel moves with the thing it
             is attached to, so there is no reason to close it

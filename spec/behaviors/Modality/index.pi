@@ -1,0 +1,58 @@
+use ../../lib/UiBehavior
+
+export ui-behavior Modality:
+    description:
+        Modality blocks the rest of the page while a panel, such as a dialog,
+        is open, so the user deals with the panel before anything else. It
+        belongs to the component that opens the panel.
+
+    focusContainment:
+        Focus moves into the panel when it opens and stays there. Tab and
+        Shift+Tab move through what's inside, wrapping round from the last
+        thing to the first and back. The keyboard can't move focus anywhere
+        outside the panel. If nothing inside can take focus, the panel itself
+        takes it.
+
+    initialFocus:
+        By default, focus goes to the first thing in the panel that can take
+        it. The component can pick something else, such as the least harmful
+        button in a "Delete this?" panel, or the top of the panel when its
+        content is long and the user should start reading there. Opening
+        without moving focus at all is only for panels the user didn't ask
+        for, and even then the panel is announced.
+
+    inertBackground:
+        Everything outside the panel can't be clicked, focused, or typed into,
+        and is hidden from assistive tools, so a screen reader user can't
+        wander out of the panel by accident. Popups opened from inside the
+        panel count as part of it, even if they are drawn elsewhere on the
+        page. How the rest of the page is blocked is up to the chosen library.
+
+    scrollLock:
+        The page behind the panel doesn't scroll while it is open, whether by
+        wheel, touch, or keyboard. The panel's own content can still scroll.
+        Locking the page doesn't make its content jump sideways when the
+        scrollbar goes away. When the panel closes, the page is where the user
+        left it. The component can leave scrolling on, such as for a panel
+        that covers only part of the screen.
+
+    backdrop:
+        Something usually covers the page behind the panel, such as a dimmed
+        layer, to show it can't be used. Whether clicking it closes the panel
+        is up to the component, as described in Dismissal.
+
+    focusReturn:
+        When the panel closes, focus goes back to whatever opened it, or to
+        somewhere the component chooses if that is gone. The rest of the page
+        becomes usable again at the same moment.
+
+    nesting:
+        A blocking panel can open another on top of it. Only the top one can
+        be used; the one under it is blocked like the rest of the page. When
+        the top one closes, the one under it can be used again and focus goes
+        back into it. The page stays locked until the last one closes.
+
+    nonGoals:
+        - It doesn't decide how the panel closes. That's Dismissal
+        - Not for panels that leave the rest of the page usable, such as a
+            Popover

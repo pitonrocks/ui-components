@@ -1,0 +1,65 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../../../behaviors/Dragging import Dragging
+
+export ui-component ImageCropper:
+    description:
+        An image cropper lets the user choose which part of an image to keep,
+        such as when setting a profile photo. The user moves and resizes a
+        crop area over the image, and can zoom, rotate, and flip the image
+        underneath it.
+
+    behaviors:
+        - @{Dragging}
+        - @{Announcement}
+
+    cropArea:
+        The crop area is a rectangle or a circle, with the part of the image
+        outside it dimmed. The user drags the area to move it, and drags its
+        edges or corners to resize it. It always stays within the image, and
+        between the smallest and largest size the component allows.
+
+    shape:
+        The component can fix the crop area's proportions, such as square or
+        16 by 9, and resizing keeps them. Whether the user can hold a key to
+        keep the current proportions while resizing is up to the chosen
+        library.
+
+    fixedArea:
+        Instead, the component can fix the crop area in place, so the user
+        moves and zooms the image underneath it, as many profile photo
+        croppers do.
+
+    image:
+        The user can drag the image to move it, and zoom with the scroll wheel
+        or by pinching, towards wherever the pointer or fingers are. The
+        component can offer controls to rotate and flip it. Zoom and rotation
+        stay within limits the component sets.
+
+    keyboard:
+        The crop area can be focused. The arrow keys move it by a small step,
+        and by a bigger step with a modifier held. Other keys resize it and
+        zoom the image in and out. Which keys, and the size of each step, is
+        up to the chosen library.
+
+    announcing:
+        Assistive tools are told the crop area's position and size, and the
+        image's zoom and rotation, as they change.
+
+    starting:
+        The component can set where the crop area starts, and the starting
+        zoom, rotation, and flip. It can also set any of them later.
+
+    result:
+        The component is told the crop as it changes. The crop can be given in
+        the original image's own pixels, with zoom, rotation, and flip taken
+        into account, so the same crop can be applied to the full-size image
+        elsewhere, such as on a server. The cropper can also produce the
+        cropped image itself, which is never enlarged beyond the original's
+        resolution.
+
+    nonGoals:
+        - No other editing, such as filters, brightness, or drawing
+        - It doesn't choose or upload the image. A FilePicker or DropZone can
+            supply it, and the app uploads the result

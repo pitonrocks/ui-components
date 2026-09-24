@@ -1,0 +1,64 @@
+use ../../lib/UiBehavior
+
+export ui-behavior KeyboardShortcuts:
+    description:
+        Keyboard shortcuts are key combinations that trigger an action from
+        anywhere in an app, or anywhere in one part of it, such as Ctrl+S to
+        save or "/" to jump to search. They belong to the app, or to the
+        component that owns the part where they work.
+
+    combinations:
+        A shortcut is one key, with or without modifier keys held down, such
+        as Ctrl, Alt, Shift, or the command key. It can also be a short series
+        of keys pressed one after another, such as G then I, which must be
+        finished within a moment of starting.
+
+    platforms:
+        A shortcut can use the platform's main modifier, which is Command on
+        Apple devices and Ctrl elsewhere, so one shortcut suits everyone.
+        Shortcuts are shown to the user in their platform's own way, such as
+        ⌘K on a Mac and Ctrl+K elsewhere.
+
+    typing:
+        Shortcuts never get in the way of typing. While the user is typing in
+        a text box, a single key without modifiers, like "/", types as normal.
+        Shortcuts that use Ctrl, Alt or Command still work there, unless the
+        app says otherwise.
+
+    scope:
+        A shortcut can work across the whole app, or only while focus is in
+        one part of it, such as an editor or a side panel. Where the same keys
+        mean something in that part and in the whole app, the part wins while
+        focus is in it. While a blocking panel, such as a dialog, is open,
+        shortcuts for the page behind it don't work.
+
+    conflicts:
+        When two shortcuts claim the same keys in the same place, the more
+        specific one wins: a series of keys over a single key, and more
+        modifiers over fewer. Whether clashes are reported, and what happens
+        when neither is more specific, is up to the chosen library.
+
+    holding:
+        Whether holding the keys down repeats the action is up to the app.
+
+    platformKeys:
+        Shortcuts don't take over keys that the platform or assistive tools
+        rely on, such as copy and paste, or a screen reader's own commands.
+
+    keyboardLayouts:
+        Shortcuts work on keyboards other than US English. Letters and digits
+        with modifiers work everywhere, but symbols move between layouts, so
+        shortcuts that use them are chosen with care. Keys that start an
+        accented letter don't trigger anything.
+
+    listing:
+        Each shortcut can carry a short description, so the app can list them,
+        such as on a help screen or beside a menu item. Whether the user can
+        change a shortcut by pressing the keys they want is up to the chosen
+        library.
+
+    nonGoals:
+        - Not for keys inside a component, such as the arrow keys in a list.
+            Those are Traversal and the component's own keyboard rules
+        - Not a command palette. A searchable list of actions is a separate
+            component that can show their shortcuts

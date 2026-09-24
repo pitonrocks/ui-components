@@ -1,0 +1,57 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dragging import Dragging
+from ../../../behaviors/FormParticipation import FormParticipation
+
+export ui-component AngleSlider:
+    description:
+        An angle slider is a round dial for setting an angle, such as the
+        direction of a shadow or the rotation of a picture. The user turns a
+        handle around the dial, and the value is the angle it points at, in
+        degrees.
+
+    behaviors:
+        - @{Dragging}
+        - @{FormParticipation}
+
+    value:
+        An angle from 0 up to a full turn. Where 0 points, and which way the
+        angle grows, is up to the chosen library.
+
+    pointer:
+        The user drags the handle around the dial, and the angle follows the
+        direction from the centre of the dial to the pointer. Clicking or
+        tapping anywhere on the dial moves the handle to point there.
+
+    keyboard:
+        The handle is one stop in the Tab order. The arrow keys turn it by one
+        step either way, and with Shift (or the platform's equivalent) by a
+        bigger step. Home and End go to the lowest and highest angle. Whether
+        stepping past the highest angle carries on round from 0 is up to the
+        chosen library.
+
+    steps:
+        The component sets the size of a step, such as 1 degree or 15 degrees.
+        Dragging also moves in whole steps.
+
+    reporting:
+        The component is told about changes continuously while the handle
+        turns, and again once when the user lets go, as with a Slider.
+
+    valueText:
+        Assistive tools read out the angle with its unit, such as "90 degrees",
+        or friendlier text the component gives, such as "East".
+
+    marks:
+        Whether it shows marks around the dial, such as every 45 degrees, is up
+        to the chosen library.
+
+    disabled:
+        A disabled angle slider can't be turned or focused. A read-only one can
+        be focused and read out, but not turned.
+
+    nonGoals:
+        - No more than one full turn. Values such as 720 degrees for two turns
+            are not supported
+        - Not a knob for an ordinary number with a start and an end, such as a
+            volume. That's a Slider, however round it looks

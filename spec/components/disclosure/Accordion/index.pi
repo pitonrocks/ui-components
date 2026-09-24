@@ -1,0 +1,59 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Presence import Presence
+from ../Collapsible import Collapsible
+
+export ui-component Accordion:
+    description:
+        An accordion is a stack of sections, each with a heading the user can
+        press to show or hide what's under it, like a list of frequently asked
+        questions. It saves space on a page with a lot to read.
+
+    composes:
+        - @{Collapsible}
+
+    behaviors:
+        - @{Presence}
+
+    headings:
+        Each section's trigger sits inside a heading at the right level for
+        the page, so assistive tools can list and jump between sections the
+        same way as other headings. The trigger tells assistive tools whether
+        its section is shown.
+
+    expansion:
+        The component decides whether only one section can be open at a time
+        or several. With one at a time, opening a section closes whichever was
+        open before. With several, each opens and closes on its own.
+
+    collapsing:
+        With several allowed, any open section can be closed. With one at a
+        time, the component decides whether the open section can be closed
+        again, leaving every section closed, or whether one must always stay
+        open.
+
+    keyboard:
+        Every trigger is its own stop in the Tab order, because the open
+        sections between them may hold things to Tab to. As well as that, the
+        Up and Down arrow keys move between triggers, and Home and End go to
+        the first and last. Whether the arrow keys wrap around at the ends is
+        up to the chosen library.
+
+    orientation:
+        Sections are usually stacked top to bottom. They can also sit side by
+        side, and then Left and Right move between triggers instead, reversed
+        for right-to-left languages.
+
+    disabled:
+        A section can be disabled, and so can the whole accordion. A disabled
+        section can't be opened or closed by the user, and the arrow keys pass
+        over its trigger.
+
+    reporting:
+        The component is told which sections are open whenever that changes,
+        and can open or close sections itself.
+
+    nonGoals:
+        - Not tabs. Tabs always show exactly one panel in the same place
+        - Not for a single section. That's a Collapsible
+        - No dragging sections to reorder them

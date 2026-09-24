@@ -21,6 +21,11 @@ export ui-component ToggleButton:
         The name says what is being turned on or off, and stays the same in
         both states. Whether it is pressed is conveyed separately.
 
+    groups:
+        Several related toggle buttons, such as Bold, Italic and Underline, are
+        put together in a ToggleGroup, which gives them one stop in the Tab
+        order.
+
     nonGoals:
         - The name doesn't change with the state. A button whose text changes to
             say what it will do next, like Play then Pause, is an ordinary

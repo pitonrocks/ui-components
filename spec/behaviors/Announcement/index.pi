@@ -1,0 +1,44 @@
+use ../../lib/UiBehavior
+
+export ui-behavior Announcement:
+    description:
+        Announcement tells assistive tools, such as screen readers, about a
+        change without moving focus to it. A message like "3 results" or
+        "Added to basket" is read out while the user carries on where they
+        were. It belongs to the component where the change happens.
+
+    urgency:
+        Most announcements are polite. They wait until the screen reader has
+        finished what it is saying. Urgent ones, such as an error that stops
+        the user's work, interrupt it. The component decides which, and keeps
+        interrupting for things the user must hear straight away.
+
+    message:
+        An announcement is short, plain text that makes sense on its own, such
+        as "Copied" rather than a tick. It says what happened, not what it
+        looks like.
+
+    repeats:
+        The same message announced twice is read out twice. A new message
+        replaces one that hasn't been read out yet.
+
+    bursts:
+        When messages come in quick bursts, such as a result count changing
+        with every letter typed, the user hears the latest, not every one. How
+        long to wait for things to settle is up to the chosen library.
+
+    regions:
+        Some components are themselves a place where messages appear, such as
+        a notification area or a status line. New content added there is
+        announced as it arrives. Content that was already there when the page
+        loaded is not.
+
+    visibility:
+        An announcement doesn't have to be shown on screen. A message meant
+        only for assistive tools is hidden from view but still read out.
+
+    nonGoals:
+        - It doesn't move focus. Something the user must deal with before
+            carrying on needs a blocking panel, not an announcement
+        - No history. Messages the user missed aren't kept to be read again,
+            so anything they may need later also stays on screen

@@ -1,5 +1,6 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
 from ../../../behaviors/Selection import Selection
 from ../../../behaviors/Traversal import Traversal
 from ../../toggles/Radio import Radio
@@ -16,6 +17,7 @@ export ui-component RadioGroup:
     behaviors:
         - @{Selection}
         - @{Traversal}
+        - @{FormParticipation}
 
     value:
         The group holds one value: whichever radio is picked. It can start with
@@ -38,4 +40,10 @@ export ui-component RadioGroup:
         the same way either way.
 
     disabled:
-        The whole group can be disabled, as can individual radios.
+        The whole group can be disabled, as can individual radios. A read-only
+        group can still be moved through and read out, but the picked radio
+        can't be changed.
+
+    required:
+        When a value is required, the group as a whole is marked as required,
+        not each radio, and an error for it is linked to the group.

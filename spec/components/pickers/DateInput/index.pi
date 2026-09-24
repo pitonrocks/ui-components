@@ -1,0 +1,68 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../../../behaviors/FormParticipation import FormParticipation
+
+export ui-component DateInput:
+    description:
+        A date input lets the user type a date into separate segments for the
+        day, month and year, laid out in the order and with the separators
+        that are usual for their locale. It has no calendar.
+
+    behaviors:
+        - @{FormParticipation}
+        - @{Announcement}
+
+    value:
+        A plain calendar date, with no time of day and no time zone, as with a
+        DatePicker. It only has a value once every segment is filled in. Until
+        then the value is empty, though the segments keep what was typed.
+
+    segments:
+        Each segment shows its part of the date, or a placeholder such as "dd",
+        "mm" or "yyyy" while it is empty. Whether the month can be shown as a
+        name, and whether leading zeros are shown, follows the user's locale
+        unless the component says otherwise.
+
+    typing:
+        Typing digits fills the focused segment. Focus moves on to the next
+        segment by itself once the segment is full, or as soon as no further
+        digit could make sense, so typing 4 in the month moves straight on.
+        Only digits that could make sense are accepted.
+
+    keyboard:
+        Left and Right move between segments. Up and Down raise and lower the
+        focused segment by one, going round within that segment, so December
+        goes up to January without changing the year. Page Up and Page Down
+        move by a bigger amount. Home and End go to the segment's lowest and
+        highest value. Backspace clears the focused segment, or moves back to
+        the one before if it is already empty. Whether each segment is its own
+        stop in the Tab order is up to the chosen library.
+
+    pasting:
+        Pasting a whole date fills every segment at once, if the pasted text
+        can be read as a date.
+
+    limits:
+        The component can set an earliest and latest date, and mark other days
+        as unavailable. A date outside them can still be typed, but it is
+        marked as not valid rather than silently changed.
+
+    range:
+        For a range, there are two sets of segments, one for the start and one
+        for the end, each with its own name.
+
+    accessibility:
+        The whole date input has a name, and each segment has its own, such as
+        "month". Assistive tools read out each segment's new value as it
+        changes, without focus moving.
+
+    disabled:
+        A disabled date input can't be focused or changed. A read-only one can
+        be focused and read out, but not changed.
+
+    nonGoals:
+        - No calendar. A date input with a calendar is a DatePicker
+        - No time of day. That's a TimePicker
+        - Whether segments can be left out, such as the day for a card's expiry
+            month, is up to the chosen library

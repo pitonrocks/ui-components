@@ -1,0 +1,69 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../../buttons/Button import Button
+
+export ui-component Steps:
+    description:
+        Steps guide the user through a task split into stages, such as
+        "Address, Delivery, Payment" in a checkout. They show every stage,
+        which one the user is on, and which are done, along with the content
+        of the current stage and buttons to go back and forward.
+
+    composes:
+        - @{Button}
+
+    behaviors:
+        - @{Announcement}
+
+    stepList:
+        Each step shows a number or an icon and a label, and can have a short
+        description. Each step is either completed, current, or still to come.
+        That state is shown by more than colour alone, and assistive tools are
+        told which step is current.
+
+    moving:
+        A Next button moves to the following step and a Back button to the one
+        before. Back is unavailable on the first step. The component can also
+        let the user jump to a step by pressing it in the list. Steps the user
+        can't jump to yet are shown, but can't be pressed.
+
+    linear:
+        The component decides whether steps must be done in order. In a flow
+        that must, the user can go back to any step already visited, but can
+        only move forward one step at a time.
+
+    validation:
+        The component says whether the current step is complete enough to move
+        on from, such as when a required field is still empty. Moving forward
+        from an incomplete step is blocked, and the component is told, so it
+        can show the user what's missing. Checking the fields themselves is the
+        component's job.
+
+    optionalSteps:
+        The component can mark a step as one that can be skipped. Moving
+        forward past it is allowed even when it isn't complete, and it is shown
+        as optional.
+
+    finished:
+        After the last step, the flow is finished, which is different from
+        being on the last step. The component is told, and can show something
+        in place of a step, such as "Order placed".
+
+    progress:
+        How far through the flow the user is can also be shown as a single
+        measure, such as a bar or "Step 2 of 4". Assistive tools can read it
+        out.
+
+    focus:
+        When the step changes, the user is told about the new step. The
+        component either moves focus to the start of the new step, such as its
+        heading, or announces it. Focus is never left on something that has
+        gone.
+
+    orientation:
+        The list of steps can run across, above the content, or down the side.
+
+    nonGoals:
+        - Not a Stepper. A Stepper changes a number up and down
+        - Doesn't save the user's progress between visits

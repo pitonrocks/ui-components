@@ -1,0 +1,51 @@
+use ../../../lib/UiComponent
+
+from ../../Link import Link
+
+export ui-component TableOfContents:
+    description:
+        A table of contents lists links to the headings on a long page, such
+        as the sections of a help article. It follows the user as they scroll,
+        showing which section they are reading.
+
+    composes:
+        - @{Link}
+
+    items:
+        Each item links to one heading on the page and knows that heading's
+        level, so that lower-level headings can be indented under the ones
+        above them. The component supplies the headings; whether the chosen
+        library can also find them on the page by itself is up to it. The list
+        has a name of its own, such as "On this page".
+
+    tracking:
+        As the user scrolls, the items for the headings in view are marked as
+        active, both on screen and for assistive tools. More than one can be
+        active at once, such as when several short sections fit on screen.
+        What counts as in view, such as how far down the screen a heading must
+        reach, is up to the chosen library, and the component can adjust it.
+
+    following:
+        Following an item scrolls the page to its heading and updates the
+        page's address, so the user can share a link to that section. The next
+        press of Tab carries on from that heading, not from the table of
+        contents.
+
+    scrollContainer:
+        By default it follows the scrolling of the whole page. The component
+        can point it at a scrolling panel instead, when the content scrolls
+        inside one.
+
+    keepingInView:
+        If the table of contents is too long for its space and scrolls on its
+        own, it scrolls itself to keep the active item in view. It never
+        scrolls the page to do so. The component can turn this off.
+
+    reporting:
+        The component is told which headings are active whenever that changes,
+        and can mark items active itself.
+
+    nonGoals:
+        - Not the site's main navigation. That's a NavigationMenu
+        - Doesn't number headings or change the page's content
+        - Doesn't collapse or expand sections of the list

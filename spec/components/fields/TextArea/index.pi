@@ -1,14 +1,20 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component TextArea:
     description:
         A text area is a box for typing several lines of text, such as a
         comment or a description. It either stays a fixed height and scrolls,
         or grows to fit what's typed.
 
+    behaviors:
+        - @{FormParticipation}
+
     lines:
         Pressing Enter starts a new line. Pressing Tab moves focus out of the
         text area, as it does everywhere else, rather than typing a tab.
+        Pressing Enter never submits the form it belongs to.
 
     height:
         The component chooses a fixed height, or a height that grows with the

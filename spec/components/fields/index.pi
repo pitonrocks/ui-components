@@ -1,3 +1,7 @@
+from ./EditableText export *
 from ./NumberInput export *
+from ./PasswordInput export *
+from ./PinInput export *
+from ./TagsInput export *
 from ./TextArea export *
 from ./TextField export *

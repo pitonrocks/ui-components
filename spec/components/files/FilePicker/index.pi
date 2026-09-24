@@ -1,5 +1,6 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
 from ../../buttons/Button import Button
 
 export ui-component FilePicker:
@@ -11,19 +12,35 @@ export ui-component FilePicker:
     composes:
         - @{Button}
 
+    behaviors:
+        - @{FormParticipation}
+
     picking:
         Pressing the button opens the device's file chooser. If the user
-        cancels, nothing changes. Picking again replaces the earlier choice
-        rather than adding to it.
+        cancels, nothing changes. By default, picking again replaces the
+        earlier choice. The component can instead add to it, up to its limit,
+        and let the user remove files one at a time.
 
     fileTypes:
         The component can say which kinds of file to offer, such as images
         only. This is a hint to the file chooser, and on some platforms the
         user can get around it, so the files handed back are still checked.
 
+    limits:
+        Besides the kinds of file, the component can limit how many files can
+        be picked, and how large or small each one can be, and can add its own
+        checks. The component is told which files were accepted, and which
+        were turned away and why, such as being too large or too many.
+
+    camera:
+        On devices with a camera, the component can ask for the camera to be
+        offered straight away, such as for a photo of a receipt. Whether this
+        works is up to the chosen library and platform.
+
     chosen:
         After picking, it shows what was chosen, such as the file name or "3
-        files", and lets the user clear the choice.
+        files", and lets the user clear the choice. A disabled or read-only
+        file picker keeps showing what was chosen, but it can't be changed.
 
     nonGoals:
         - No uploading, progress bars, or previews. It only hands back the files

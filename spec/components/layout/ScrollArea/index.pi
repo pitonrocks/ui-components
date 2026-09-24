@@ -1,0 +1,57 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dragging import Dragging
+
+export ui-component ScrollArea:
+    description:
+        A scroll area is a region whose content scrolls, with scrollbars drawn
+        to match the rest of the design instead of the platform's own. The
+        scrolling itself is still the platform's, so it feels and works the
+        same as anywhere else.
+
+    behaviors:
+        - @{Dragging}
+
+    nativeScrolling:
+        Every usual way of scrolling keeps working: mouse wheel, trackpad,
+        touch with its momentum, keyboard, scrolling to whatever gets focus,
+        and finding text on the page. Assistive tools see ordinary scrolling
+        content.
+
+    scrollbars:
+        It can scroll up and down, across, or both. Each scrollbar has a thumb
+        whose size shows how much of the content is in view, and whose place
+        shows where the view is. Where two scrollbars meet, a corner fills the
+        gap.
+
+    visibility:
+        A scrollbar only appears when there is more content than fits that
+        way. The component decides whether it then stays visible, or only
+        shows while the pointer is over the area or while it is scrolling,
+        fading out afterwards.
+
+    pointer:
+        The user can drag a thumb to scroll. What clicking the track beside the
+        thumb does, such as jumping there or moving a page at a time, is up to
+        the chosen library.
+
+    keyboard:
+        When the content doesn't fit and holds nothing that can take focus,
+        the area itself can take focus, so keyboard users can scroll it with
+        the arrow and page keys. The drawn scrollbars never take focus, and
+        assistive tools ignore them.
+
+    edges:
+        The component can tell whether the content can scroll further in each
+        direction, so it can show a hint such as a fading edge. It can also
+        scroll the area to an edge or a given place.
+
+    direction:
+        For right-to-left languages, content scrolls from the right. Which side
+        the up-and-down scrollbar sits on then is up to the chosen library.
+
+    nonGoals:
+        - Doesn't change how scrolling feels. No smoothing, snapping, or
+            custom momentum beyond the platform's own
+        - Doesn't draw only what's on screen. That's Virtualisation
+        - No loading more content when the user reaches the end

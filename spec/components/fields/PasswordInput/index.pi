@@ -1,0 +1,53 @@
+use ../../../lib/UiComponent
+
+from ../../buttons/ToggleButton import ToggleButton
+from ../TextField import TextField
+
+export ui-component PasswordInput:
+    description:
+        A password input is a text field for typing a password, hidden as it's
+        typed, with a button that shows or hides it. It helps the user check
+        what they typed without leaving it on screen.
+
+    composes:
+        - @{TextField}
+        - @{ToggleButton}
+
+    hiding:
+        The password starts hidden, each character shown as a dot or similar,
+        unless the component says otherwise. Hidden or shown, the text itself
+        is the same.
+
+    revealing:
+        The show button is a ToggleButton next to the field. Pressing it shows
+        the password as plain text, and pressing it again hides it. Focus goes
+        back to the field afterwards, with the caret where it was, so the user
+        can keep typing. The component can also show or hide it, and is told
+        when the user does.
+
+    name:
+        The button has a name such as "Show password", which stays the same
+        either way. Whether it is pressed says whether the password is shown.
+
+    resetting:
+        The password is hidden again when the form it belongs to is submitted
+        or reset, so it isn't left showing.
+
+    passwordManagers:
+        The component can say whether this is the user's current password or
+        a new one being chosen. This lets the platform and password managers
+        offer to fill it in, or to suggest a strong new one. The component can
+        also ask password managers to leave the field alone, such as for a
+        field where a password must be typed again by hand. How well that
+        request is followed is up to the chosen library and the password
+        managers themselves.
+
+    common:
+        Its label, help text, error message, and disabled and read-only states
+        work the same way as a TextField's. A disabled field's show button is
+        disabled too.
+
+    nonGoals:
+        - No strength meter or list of password rules. The component can show
+            those alongside it
+        - No second field to confirm the password. That's two PasswordInputs

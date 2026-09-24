@@ -1,0 +1,61 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dragging import Dragging
+
+export ui-component Splitter:
+    description:
+        A splitter divides an area into two or more panels, side by side or
+        stacked, with a handle between each pair. Dragging a handle makes the
+        panel on one side bigger and the one on the other side smaller, like
+        the divider between a file list and a preview.
+
+    behaviors:
+        - @{Dragging}
+
+    sizes:
+        Each panel's size is a share of the whole area, and the shares always
+        add up to all of it. The component sets the starting sizes, and can set
+        sizes itself later. Whether sizes can also be given in fixed units is
+        up to the chosen library.
+
+    limits:
+        The component can give each panel a smallest and largest size, and a
+        handle stops when either panel next to it reaches one. Whether panels
+        further along then give way is up to the chosen library.
+
+    keyboard:
+        Each handle is its own stop in the Tab order. The arrow keys in the
+        splitter's direction move the handle by a small step, and Home and End
+        move it as far as it will go each way. A bigger step with a modifier
+        key, and a key to jump between panels, are up to the chosen library.
+
+    collapsing:
+        The component can let a panel collapse. Dragging its handle past the
+        panel's smallest size snaps it shut, to nothing or to a thin strip, and
+        dragging back reopens it. Pressing Enter on the handle collapses the
+        panel or restores it to the size it had before.
+
+    names:
+        Each handle has a name saying which panel it resizes, such as "Resize
+        sidebar". Assistive tools read out its position as a value between its
+        limits.
+
+    direction:
+        Panels can sit side by side or be stacked. Side by side, they are laid
+        out and moved right to left for right-to-left languages.
+
+    reporting:
+        The component is told the sizes continuously while a handle moves, and
+        again once when the user lets go, so it can remember them for next
+        time. It is also told when a panel collapses or reopens.
+
+    nesting:
+        A panel can hold another splitter running the other way. Dragging
+        where two handles cross to resize both at once is up to the chosen
+        library.
+
+    nonGoals:
+        - No dragging panels to rearrange or dock them somewhere else
+        - Doesn't remember sizes between visits. The component can store what
+            it is told
+        - Not a Slider, even though a handle has a value

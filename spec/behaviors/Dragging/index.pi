@@ -1,0 +1,59 @@
+use ../../lib/UiBehavior
+
+export ui-behavior Dragging:
+    description:
+        Dragging lets the user move something by pressing on it and moving the
+        pointer, such as a slider's handle, the divider between two panels, or
+        a crop area over an image. Everything that can be dragged can also be
+        moved with the keyboard. It belongs to the component with the thing
+        being dragged.
+
+    starting:
+        A drag starts when the user presses on the thing and moves. Tiny
+        movements, such as a shaky click or tap, don't count as a drag. How
+        far is far enough is up to the chosen library. It works the same with
+        a mouse, a finger, or a pen.
+
+    following:
+        Once started, the thing follows the pointer until the user lets go,
+        even if the pointer leaves the component or the window. While
+        dragging, text on the page isn't selected by accident, and dragging on
+        a touch screen doesn't scroll the page.
+
+    limits:
+        The component decides where the thing can go: along one line or
+        anywhere, within limits, and freely or in steps. It stays within those
+        limits however far the pointer goes, and follows again once the
+        pointer comes back.
+
+    ending:
+        Letting go ends the drag. So does anything that interrupts it, such as
+        the platform cancelling the pointer, a menu opening, or the window
+        losing focus. The thing stays where it had got to. Whether Escape
+        cancels the drag and puts the thing back is up to the chosen library.
+
+    reporting:
+        The component is told when a drag starts, continuously as it moves,
+        and once when it ends, so it can choose to act only on where the thing
+        ended up.
+
+    keyboard:
+        The thing can be focused, and the arrow keys move it by one step.
+        Holding a modifier, or Page Up and Page Down, moves it by a bigger
+        step. Home and End move it to its limits, where it has them. Which
+        keys are used beyond the arrows, and the size of each step, is up to
+        the component.
+
+    direction:
+        Left and Right match what the user sees, so where right-to-left
+        languages flip the layout, the keys flip with it.
+
+    position:
+        Assistive tools are told what the thing is and where it is, in words
+        that make sense, such as "Sidebar, 30 percent".
+
+    nonGoals:
+        - Not for dragging items onto something else, such as reordering a
+            list or moving an item between lists. That's drag and drop, which
+            also needs places to drop and a way to say where things landed
+        - Not for files dragged in from outside the app. That's a DropZone

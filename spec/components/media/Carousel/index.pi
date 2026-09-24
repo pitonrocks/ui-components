@@ -1,0 +1,71 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../../../behaviors/Dragging import Dragging
+from ../../buttons/IconButton import IconButton
+
+export ui-component Carousel:
+    description:
+        A carousel shows a series of slides, such as photos or featured items,
+        a page at a time in a strip the user moves along. Buttons move to the
+        next and previous page, and a row of markers shows which page is
+        current and lets the user jump to another.
+
+    composes:
+        - @{IconButton}
+
+    behaviors:
+        - @{Dragging}
+        - @{Announcement}
+
+    pages:
+        A page holds one slide, or several side by side. Moving on moves a
+        whole page, or a set number of slides. Slides can all be the same
+        size or each a different width. The strip can run across or up and
+        down, and one running across is reversed for right-to-left languages.
+        The next slides can peek in at the edge, to show there is more.
+
+    current:
+        The component using the carousel is told when the page changes, and
+        can move it to any page or slide.
+
+    buttons:
+        The next and previous buttons move one step. At the first and last
+        page they are disabled, unless the carousel loops, in which case it
+        wraps round to the other end.
+
+    markers:
+        There is one marker per page, and the current one is marked. Pressing
+        a marker moves to its page. With a marker focused, the arrow keys move
+        to the next and previous page, and Home and End to the first and last.
+
+    swiping:
+        On a touch screen the user swipes the strip along, and it settles on
+        the nearest page. A trackpad or scroll wheel moves it too. The
+        component decides whether it can also be dragged with a mouse.
+
+    slides:
+        Each slide tells assistive tools which one it is, such as "3 of 8".
+        Slides out of view are hidden from assistive tools and can't be
+        reached with the keyboard, so Tab never lands on something that can't
+        be seen.
+
+    announcing:
+        When the user moves to another page, assistive tools are told about
+        the slides now in view. While the carousel is moving by itself, this is
+        not announced, so the user isn't interrupted every few seconds.
+
+    autoplay:
+        The component can have the carousel move on by itself at a set pace,
+        looping round at the end. A button lets the user stop and start it.
+        It pauses while the pointer is over the carousel and while the page
+        can't be seen, and carries on afterwards. It stops for good when focus
+        moves into the carousel or the user moves it along themselves, until
+        they start it again.
+
+    nonGoals:
+        - Not for switching between panels of content with named headings.
+            That's tabs
+        - No endless strip that moves smoothly by itself. That's a Marquee
+        - No thumbnails, zooming, or full-screen view. The app can add those
+            around it

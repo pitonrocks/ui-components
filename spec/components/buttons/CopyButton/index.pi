@@ -1,0 +1,42 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../Button import Button
+
+export ui-component CopyButton:
+    description:
+        A copy button copies a piece of text to the clipboard when pressed,
+        such as a link, an access key or a code snippet, and briefly shows
+        that it worked.
+
+    composes:
+        - @{Button}
+
+    behaviors:
+        - @{Announcement}
+
+    value:
+        The component gives the text to copy, and can change it at any time.
+        It is often shown next to the button, but doesn't have to be. Pressing
+        the button copies the whole text, as it is at that moment.
+
+    confirmation:
+        After copying, the button changes for a short while to show it worked,
+        such as a tick in place of its icon, or "Copied" in place of its label.
+        It then goes back to how it was. Pressing it again during that time
+        copies again and starts the time over. How long it lasts is up to the
+        component.
+
+    announcing:
+        Assistive tools are told the text was copied, without focus moving.
+        The button's name stays the same while it shows the confirmation.
+
+    failure:
+        Copying can fail, for example if the platform doesn't allow it. The
+        button then doesn't show that it worked. The user is told it didn't
+        work, and the component is told too.
+
+    nonGoals:
+        - Text only. Whether pictures or formatted content can be copied is up
+            to the chosen library and platform
+        - No pasting or reading from the clipboard

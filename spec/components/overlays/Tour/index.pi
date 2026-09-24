@@ -1,0 +1,70 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Positioning import Positioning
+from ../../../behaviors/Presence import Presence
+from ../Dialog import Dialog
+from ../Popover import Popover
+
+export ui-component Tour:
+    description:
+        A tour walks the user through part of an app one step at a time, such
+        as a first-run introduction. Each step points out one thing on the page
+        with a short explanation, and the user moves forwards and backwards
+        through the steps or leaves at any point.
+
+    composes:
+        - @{Popover}
+        - @{Dialog}
+
+    behaviors:
+        - @{Positioning}
+        - @{Presence}
+
+    steps:
+        A tour is an ordered list of steps. Each step has a title and some
+        text, and usually points at one thing on the page. A step can instead
+        be a Dialog in the middle of the screen, such as a welcome at the start
+        or a summary at the end, or a panel that isn't attached to anything.
+
+    highlight:
+        The thing a step points at is picked out, usually by dimming the rest
+        of the page around it, and the step's panel sits beside it, attached
+        like a Popover. If it is off screen, the page scrolls to it first.
+        Everything moves with it if the page scrolls or the layout changes.
+
+    navigation:
+        Each step has buttons to go to the next and previous step, and to leave
+        the tour. The last step's next button finishes it. The component can
+        let Left and Right move between steps too; for right-to-left
+        languages, they swap. The component can also jump to any step.
+
+    progress:
+        Each step shows where the user is, such as "Step 2 of 5".
+
+    waiting:
+        A step can wait for something to happen before the tour moves on, such
+        as the user opening a panel, or part of the page loading. Nothing is
+        shown while it waits. If the thing a step points at never appears, the
+        component decides whether to skip the step or wait.
+
+    page:
+        The component decides whether the page can be used during a step. It
+        can block the page like a Dialog, or leave the highlighted thing usable
+        so the user can try it.
+
+    focus:
+        When a step appears, focus moves into it and assistive tools read out
+        its title and text. Leaving the tour puts focus back where it was
+        before the tour started.
+
+    ending:
+        The user can leave with a close button or Escape, and the component can
+        let clicking outside do the same. The component is told whether the
+        tour was finished, skipped by the user, or closed. That lets it decide
+        whether to show the tour again later.
+
+    nonGoals:
+        - It doesn't remember which tours the user has already seen. That's up
+            to the app
+        - Not for a one-off hint on a single thing. That's a Tooltip or
+            Popover

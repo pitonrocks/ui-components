@@ -1,6 +1,8 @@
 use ../../../lib/UiComponent
 
 from ../../../behaviors/Filtering import Filtering
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../../behaviors/Presence import Presence
 from ../../collections/List import List
 from ../../fields/TextField import TextField
 from ../../overlays/Popover import Popover
@@ -18,6 +20,8 @@ export ui-component Combobox:
 
     behaviors:
         - @{Filtering}
+        - @{FormParticipation}
+        - @{Presence}
 
     opening:
         Typing opens the list. The user can also open it from the keyboard
@@ -34,13 +38,22 @@ export ui-component Combobox:
         If typed text is allowed as a value, nothing is highlighted until the
         user moves into the list, so Enter keeps what they typed. If only
         options from the list are allowed, the first match is highlighted as
-        they type, so Enter picks it.
+        they type, so Enter picks it. Whether the text box also fills in the
+        rest of the highlighted option's label as the user types is up to the
+        chosen library.
 
     choosing:
         Clicking an option, or pressing Enter on the highlighted one, sets the
         value, puts the option's label in the text box, and closes the list.
         Escape closes the list without changing the value. Matching parts of
-        each option are highlighted as the user types.
+        each option are highlighted as the user types. The component can
+        choose to leave the text box empty after picking, or keep what was
+        typed, instead of showing the label.
+
+    submitting:
+        When the list is closed, pressing Enter submits the form it belongs
+        to, as in any text field. While the list is open, Enter picks the
+        highlighted option instead.
 
     freeText:
         The component decides whether typed text that isn't an option counts
@@ -54,6 +67,10 @@ export ui-component Combobox:
     clearing:
         Emptying the text box clears the value, unless the combobox must have
         a value.
+
+    readOnly:
+        A read-only combobox shows its value and can be focused, but the user
+        can't type in it or open the list.
 
     nonGoals:
         - Not for picking several values

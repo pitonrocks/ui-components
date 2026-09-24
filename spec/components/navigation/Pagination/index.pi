@@ -1,0 +1,64 @@
+use ../../../lib/UiComponent
+
+from ../../Link import Link
+from ../../buttons/Button import Button
+
+export ui-component Pagination:
+    description:
+        Pagination splits a long set of results into pages and lets the user
+        move between them. It shows which page they are on, the pages around
+        it, and ways to go to the previous and next page.
+
+    composes:
+        - @{Link}
+        - @{Button}
+
+    counting:
+        The component says how many items there are in total and how many go
+        on each page, and pagination works out how many pages that makes.
+        Pages are numbered from 1.
+
+    pages:
+        The first and last pages are always shown, along with a few pages
+        either side of the current one. Pages left out are replaced by an
+        ellipsis, which can't be pressed. The component decides how many pages
+        show either side. With only a few pages, every one is shown.
+
+    current:
+        The current page stands out, and assistive tools are told it is the
+        current page. Pressing it does nothing.
+
+    previousAndNext:
+        Buttons or links go to the previous and next page, and optionally
+        straight to the first and last. At the first page, the ways back are
+        unavailable, and at the last page, the ways forward are. As a link has
+        no disabled state, an unavailable link is shown as disabled plain text
+        instead.
+
+    linksOrButtons:
+        When each page has its own address, the page items are Links, so the
+        user can open a page in a new tab, bookmark it, or share it. Otherwise
+        they are Buttons, and pressing one changes the page in place. The
+        component decides which.
+
+    names:
+        The whole control has a name, such as "Search results pages", so it
+        can be told apart from other navigation. Each item has a name that
+        reads well on its own, such as "Page 3" or "Next page", even if it
+        only shows a number or an arrow.
+
+    pageSize:
+        The component can let the user change how many items show on each
+        page, usually with a Select next to it. Which page they land on after
+        changing it is up to the chosen library, but it is never a page that
+        doesn't exist.
+
+    focus:
+        Changing the page in place doesn't move focus. Whether to take the
+        user back to the top of the results is up to the component.
+
+    nonGoals:
+        - Doesn't fetch or slice the results. It only says which page is wanted
+        - No endless scrolling or "Load more" button
+        - No box for typing a page number. Pair it with a NumberInput if that
+            matters

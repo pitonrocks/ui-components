@@ -1,0 +1,69 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/FormParticipation import FormParticipation
+
+export ui-component PinInput:
+    description:
+        A pin input is a row of small boxes for typing a short code of fixed
+        length, such as a one-time code sent by text message. Each box holds
+        one character, and focus moves along the row as the user types.
+
+    behaviors:
+        - @{FormParticipation}
+
+    value:
+        The characters in the boxes, read together as one piece of text. It
+        takes part in a form as that one piece, not as one value per box.
+
+    length:
+        The component sets how many boxes there are, usually four or six. The
+        number doesn't change while the user is typing.
+
+    characters:
+        By default only digits are accepted. The component can allow letters,
+        or letters and digits, or give its own rule. A character that doesn't
+        fit is not entered, and the component is told.
+
+    typing:
+        Typing a character fills the focused box and moves focus to the next
+        one. Typing into a box that is already filled replaces what's there.
+        Focus doesn't skip ahead to later empty boxes on its own.
+
+    deleting:
+        Backspace clears the focused box, or if it is already empty, moves back
+        to the one before and clears that. Delete clears the focused box
+        without moving.
+
+    keyboard:
+        Left and Right move between the boxes. For right-to-left languages the
+        boxes run right to left. Whether each box is its own stop in the Tab
+        order is up to the chosen library.
+
+    pasting:
+        Pasting a whole code fills every box from the first, wherever focus
+        was. Spaces and dashes are removed first, so `123-456` fills six
+        boxes. The component can mark it as a one-time code, so the device can
+        offer to fill in a code it has just received.
+
+    complete:
+        The component is told when every box is filled, whether by typing or
+        pasting. It can then choose to submit the form straight away, or to
+        move focus out of the last box.
+
+    masking:
+        The component can hide the characters as they are typed, the way a
+        password is hidden.
+
+    name:
+        The whole row has a name, such as "Verification code". Each box also
+        has a name that says where it is, such as "Digit 2 of 6".
+
+    disabled:
+        A disabled pin input can't be focused or changed. A read-only one
+        shows its characters but they can't be changed.
+
+    nonGoals:
+        - Not for codes of unknown or varying length, or for passwords. Those
+            are TextFields
+        - It doesn't decide whether the code is right. The component checks it
+            and shows any error

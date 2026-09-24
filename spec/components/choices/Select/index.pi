@@ -1,5 +1,7 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../../behaviors/Presence import Presence
 from ../../collections/List import List
 from ../../overlays/Popover import Popover
 
@@ -12,6 +14,10 @@ export ui-component Select:
     composes:
         - @{Popover}
         - @{List}
+
+    behaviors:
+        - @{FormParticipation}
+        - @{Presence}
 
     closed:
         When closed, it shows the current value, or a placeholder such as
@@ -42,6 +48,15 @@ export ui-component Select:
     clearing:
         The component decides whether the value can be cleared back to
         nothing. A select that must have a value can't be cleared.
+
+    readOnly:
+        A read-only select shows its value and can be focused, but can't be
+        opened to change it. A disabled one can't be focused or opened.
+
+    autofill:
+        The component can say what kind of value it holds, such as a country,
+        so the platform can fill it in along with the rest of an address. How
+        this is done is up to the chosen library.
 
     nonGoals:
         - No typing to search and narrow the list. That's a Combobox

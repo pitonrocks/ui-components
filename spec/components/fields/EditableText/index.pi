@@ -1,0 +1,66 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../TextField import TextField
+
+export ui-component EditableText:
+    description:
+        Editable text looks like ordinary text, such as a heading or a name,
+        until the user chooses to change it. It then turns into a text box in
+        the same place, and turns back into text when they save or cancel.
+
+    composes:
+        - @{TextField}
+
+    behaviors:
+        - @{FormParticipation}
+
+    reading:
+        While not being edited it shows the saved text. If there is none, it
+        shows a hint such as "Add a title" in its place, which is not a label.
+        It can still be reached with the Tab key, and assistive tools read it
+        out as something that can be edited.
+
+    starting:
+        The component chooses how editing starts: clicking or focusing the
+        text, double-clicking it, or pressing a separate edit button. From the
+        keyboard, focusing it or pressing Enter on it always works. The
+        component can also start and stop editing itself.
+
+    editing:
+        The text box sits where the text was and is about the same size, so
+        nothing around it jumps. It can grow with what's typed, up to a
+        maximum width. Whether the text is all selected when editing starts is
+        up to the component.
+
+    saving:
+        Pressing Enter, or moving focus away, saves the text and turns it back
+        into plain text. The component is told each time the text changes
+        while editing, and told again once when it is saved, so it can act
+        only on the saved text. The component can choose that moving away
+        does nothing, or cancels instead of saving.
+
+    cancelling:
+        Pressing Escape throws away the changes and shows the text as it was
+        before editing started. The component is told the edit was cancelled.
+
+    buttons:
+        The component can show Save and Cancel buttons while editing, and an
+        Edit button while not.
+
+    focus:
+        After saving or cancelling, focus goes back to the text, or to the
+        Edit button if there is one, so the user doesn't lose their place.
+
+    lines:
+        By default it edits one line. A version for several lines uses a
+        TextArea instead. There, Enter starts a new line and saving needs a
+        key combination, which is up to the chosen library.
+
+    disabled:
+        Disabled or read-only editable text can't be switched into editing. It
+        just shows its text.
+
+    nonGoals:
+        - No formatting, such as bold or links. That's a rich text editor
+        - It doesn't decide what's valid. It only shows the error it's given

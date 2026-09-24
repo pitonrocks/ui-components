@@ -1,0 +1,50 @@
+use ../../../lib/UiComponent
+
+export ui-component Marquee:
+    description:
+        A marquee moves a strip of content steadily across the screen by
+        itself, such as partner logos or a short announcement, looping round
+        so it never seems to end. The user doesn't move it along.
+
+    movement:
+        The content moves at a steady speed in one direction, across or up and
+        down. Across follows the language's direction, so it is reversed for
+        right-to-left languages, and the component can reverse it. The speed
+        is set by the component, and more content doesn't make it move faster.
+
+    copies:
+        Copies of the content are added as needed, so there is never a gap
+        and the loop is seamless. The copies are only for show. Assistive
+        tools read the content once, and the keyboard only reaches the
+        original.
+
+    pausing:
+        It pauses while the pointer is over it or focus is inside it, so the
+        user can read or use what's there, and carries on when they leave. The
+        component can also pause and restart it, and can start it paused.
+
+    stopping:
+        Because it keeps moving alongside other content, the user always has a
+        way to stop it for good, such as a pause button, not just by hovering.
+
+    reducedMotion:
+        When the user has asked their device for less motion, it doesn't move,
+        and the content is shown still.
+
+    loops:
+        It loops for ever, unless the component sets a number of times, after
+        which it stops. It can wait a moment before it starts. The component
+        is told each time a loop finishes, and when it stops.
+
+    name:
+        It has a name that assistive tools read out, saying what it holds,
+        such as "Our partners". Its movement is never announced.
+
+    edges:
+        Whether the content fades out at the edges is up to the chosen
+        library.
+
+    nonGoals:
+        - Not for anything the user must read or act on in time. Important
+            information belongs somewhere that stays still
+        - The user can't move it along or jump to an item. That's a Carousel

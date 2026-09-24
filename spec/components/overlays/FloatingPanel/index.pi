@@ -1,0 +1,61 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dragging import Dragging
+from ../../../behaviors/Presence import Presence
+
+export ui-component FloatingPanel:
+    description:
+        A floating panel is a small window inside the app that the user can
+        move around and resize, such as a colour palette or a properties panel
+        in a design tool. It floats above the page, which stays fully usable
+        underneath.
+
+    behaviors:
+        - @{Dragging}
+        - @{Presence}
+
+    opening:
+        The component decides what opens it, usually a button. It opens where
+        the component says, such as next to the button, or in the middle of
+        the screen. Focus moves into it, and goes back to the button when it
+        closes. It has a title, which is its name for assistive tools.
+
+    moving:
+        The user drags it by its title bar. When the panel itself has focus,
+        the arrow keys move it too, with a bigger step when holding Shift. It
+        stays within the screen, or an area the component gives it, unless the
+        component lets it go past the edges.
+
+    resizing:
+        The user drags its edges and corners to resize it. The component can
+        set a smallest and largest size, keep its shape the same while it's
+        resized, or stop it being resized at all.
+
+    grid:
+        The component can make moving and resizing snap to a grid.
+
+    stages:
+        Buttons in the title bar can shrink it down to just its title bar,
+        grow it to fill the screen or its area, and put it back to the size it
+        was. Double-clicking the title bar also fills the screen, or puts it
+        back.
+
+    reporting:
+        The component is told as the panel moves and resizes, and once when the
+        user lets go. It can also set the position and size itself.
+
+    closing:
+        A close button closes it. The component can let Escape close it too,
+        while focus is inside. Clicking outside doesn't close it, because the
+        page is meant to be used alongside it. The component decides whether
+        it reopens where it was or where it first appeared.
+
+    stacking:
+        Several panels can be open at once. The one the user last used comes
+        to the front, and Escape only closes that one.
+
+    nonGoals:
+        - It doesn't block the page. A window that does is a Dialog
+        - Not attached to anything. A panel that follows something on the page
+            is a Popover
+        - It doesn't dock into the side of the layout

@@ -1,0 +1,77 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../TextField import TextField
+
+export ui-component TagsInput:
+    description:
+        A tags input is a text box that turns what the user types into separate
+        tags, such as email recipients or keywords. Each tag is shown as a
+        small chip in front of the text box and can be removed on its own. Its
+        value is the list of tags, in the order they were added.
+
+    composes:
+        - @{TextField}
+
+    behaviors:
+        - @{FormParticipation}
+        - @{Announcement}
+
+    adding:
+        Pressing Enter turns the typed text into a tag and empties the text
+        box. Typing the separator, a comma by default, does the same. The
+        component can choose a different separator. Spaces at the start or end
+        of a tag are dropped, and empty text never becomes a tag.
+
+    pasting:
+        If the component allows it, pasted text is split at the separator and
+        each piece becomes its own tag, so pasting a list of addresses adds
+        them all at once.
+
+    leaving:
+        When focus leaves, the component decides what happens to text still
+        in the box. It can become a tag, be cleared, or be left as it is.
+
+    checking:
+        The same tag can't be added twice unless the component allows it. The
+        component can also turn a tag away by its own rule, such as not being
+        an email address, and can set a limit on how many tags there are.
+        Turned-away text stays in the text box so the user can fix it, and the
+        component is told what was refused and why.
+
+    removing:
+        Each tag has its own button to remove it, with a name such as "Remove
+        London". Pressing Backspace in an empty text box first highlights the
+        last tag, and pressing it again removes that tag. The component may
+        also offer a button that removes every tag at once.
+
+    keyboard:
+        When the text box is empty, or the caret is at its start, the Left
+        arrow key moves onto the last tag. Left and Right then move between
+        the tags, and moving Right past the last one goes back to the text
+        box. Delete or Backspace removes the highlighted tag, and typing goes
+        back to the text box. Whether focus moves onto the tags themselves, or
+        stays in the text box while a tag is highlighted, is up to the chosen
+        library.
+
+    editing:
+        If the component allows it, pressing Enter on a highlighted tag, or
+        double-clicking it, turns it back into text to edit. Enter saves the
+        change and Escape puts the tag back as it was. An edited tag is checked
+        again like a new one.
+
+    announcing:
+        Assistive tools are told when a tag is added or removed, and which one,
+        without focus moving.
+
+    disabled:
+        A disabled tags input can't be focused or changed. A read-only one
+        shows its tags and can be focused, but tags can't be added, edited or
+        removed.
+
+    nonGoals:
+        - No list of suggestions to pick from. Picking several values from
+            given options is a separate component
+        - Tags are plain text. Anything richer, such as a person with a photo,
+            is up to the component showing them

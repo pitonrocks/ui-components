@@ -27,6 +27,12 @@ export ui-component Link:
         is made clear to the user. The user can still choose for themselves
         wherever the platform lets them, such as by middle-clicking.
 
+    current:
+        A link to the page or place the user is already on, such as in a
+        NavigationMenu or Pagination, can be marked as current. It is shown as
+        current and assistive tools are told so. Whether it can still be
+        followed is up to the component using it.
+
     visited:
         Whether a link shows that it has already been followed is up to the
         chosen library.

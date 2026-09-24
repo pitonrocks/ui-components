@@ -1,11 +1,18 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/Dragging import Dragging
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component Slider:
     description:
         A slider sets a number by dragging a handle along a track, between a
         minimum and a maximum, like a volume control. It has one handle for a
         single number, or two for a range such as a price from $10 to $50. It
         moves smoothly or in fixed steps.
+
+    behaviors:
+        - @{Dragging}
+        - @{FormParticipation}
 
     pointer:
         The user drags a handle to change the value. Clicking or tapping the
@@ -18,7 +25,15 @@ export ui-component Slider:
 
     range:
         With two handles, they can't pass each other. Each handle can only go
-        as far as the other one.
+        as far as the other one. The component can also keep a minimum gap
+        between them, such as at least $5. Whether a slider can have more than
+        two handles is up to the chosen library.
+
+    fill:
+        The part of the track between the minimum and the handle is filled in.
+        The component can instead fill from another point, such as the middle
+        of a slider running from -50 to 50. With two handles, the part between
+        them is filled.
 
     reporting:
         The component is told about changes continuously while a handle moves,
@@ -32,6 +47,11 @@ export ui-component Slider:
     direction:
         A slider can run across or up and down. One running across is
         reversed for right-to-left languages.
+
+    disabled:
+        A disabled slider can't be moved or focused, and it's clear to the user
+        that it's unavailable. A read-only slider can be focused and read out,
+        but not moved.
 
     marks:
         Whether it shows marks along the track, or the value while dragging,

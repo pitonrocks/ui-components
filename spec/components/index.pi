@@ -2,9 +2,13 @@ from ./Link export *
 from ./buttons export *
 from ./choices export *
 from ./collections export *
+from ./disclosure export *
+from ./feedback export *
 from ./fields export *
 from ./files export *
 from ./layout export *
+from ./media export *
+from ./navigation export *
 from ./overlays export *
 from ./pickers export *
 from ./ranges export *

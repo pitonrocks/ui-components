@@ -8,7 +8,8 @@ export ui-component Radio:
 
     group:
         A radio always belongs to a RadioGroup, which decides which radio is
-        picked. A radio on its own has no meaning.
+        picked. A radio on its own has no meaning. Each radio has its own
+        value, which is what the group holds when that radio is picked.
 
     label:
         A radio has a name, usually shown as a label next to it. Clicking the

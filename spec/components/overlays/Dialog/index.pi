@@ -1,0 +1,68 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dismissal import Dismissal
+from ../../../behaviors/Modality import Modality
+from ../../../behaviors/Presence import Presence
+
+export ui-component Dialog:
+    description:
+        A dialog is a window that opens on top of the page for a task the user
+        deals with before going back, such as confirming a choice or filling in
+        a short form. While it's open, the rest of the page can't be used. It
+        is not attached to anything; it usually sits in the middle of the
+        screen.
+
+    behaviors:
+        - @{Modality}
+        - @{Dismissal}
+        - @{Presence}
+
+    opening:
+        The component using the dialog decides what opens it, usually a
+        button, and can also open it itself. Several buttons can open the same
+        dialog; the one that was used is the one focus goes back to.
+
+    blocking:
+        While it's open, the dialog blocks the rest of the page the way
+        Modality describes. Focus stays inside it, everything behind it can't
+        be used and is hidden from assistive tools, and the page behind
+        doesn't scroll. A dimmed backdrop usually shows this. The component
+        can make a dialog non-modal instead, so the page behind stays usable,
+        but such a dialog still isn't attached to anything; one that is
+        attached is a Popover.
+
+    titleAndDescription:
+        A dialog has a name, normally its visible title, which assistive tools
+        read out when it opens, along with a short description if it has one.
+        A dialog with no visible title still has a name.
+
+    focus:
+        When it opens, focus moves to the first thing inside that can take
+        focus, unless the component names something else, such as the least
+        risky button. For a long piece of text, focus can go to the start of
+        the text instead so it's read from the top. Tab and Shift+Tab move
+        through the dialog and wrap from the last item to the first.
+
+    closing:
+        It closes the ways Dismissal describes: Escape, or clicking the
+        backdrop. It usually has a close button too. The component can turn
+        any of these off, for example while unsaved changes would be lost. Focus then goes back
+        to whatever opened it, or somewhere else the component names.
+
+    alert:
+        A dialog can be marked as an alert, for urgent messages that need an
+        answer, such as "Delete 12 files?". Assistive tools announce it as an
+        alert. It has at least two choices, focus starts on the least
+        destructive one, and clicking the backdrop doesn't close it.
+
+    stacking:
+        A dialog can open another on top of it. Only the top one can be used.
+        Escape closes only the top one, and focus goes back to where it was in
+        the one underneath.
+
+    nonGoals:
+        - Not for messages that need no answer. A short note that goes away by
+            itself is a Toast
+        - Doesn't slide in from an edge or get dragged. That's a Drawer
+        - Its size and position are fixed. A window the user can move and
+            resize is a FloatingPanel

@@ -1,0 +1,61 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dragging import Dragging
+from ../Dialog import Dialog
+
+export ui-component Drawer:
+    description:
+        A drawer is a panel that slides in from an edge of the screen, such as
+        a sheet rising from the bottom on a phone or a side panel of filters.
+        It is a dialog in every other way. On touch screens the user can drag
+        it to resize it or swipe it away.
+
+    composes:
+        - @{Dialog}
+
+    behaviors:
+        - @{Dragging}
+
+    edge:
+        The component says which edge it comes from. For right-to-left
+        languages, the start and end sides swap. It slides in and out from
+        that edge.
+
+    blocking:
+        It blocks the page like a Dialog by default. The component can make it
+        non-modal, such as a side panel that stays open while the user works
+        on the page.
+
+    snapPoints:
+        The component can give it several resting sizes, such as half the
+        screen and the full screen. Dragging it lets go at the nearest one, or
+        the next one along if the user flicks it. Whether a flick can skip past
+        a size is up to the component. The component is told which size it
+        rests at, and can set it.
+
+    swipeToClose:
+        Dragging it back towards its edge past a certain point, or flicking it
+        that way quickly, closes it. The component can turn this off. Dragging
+        it only starts from the drawer itself or a grab handle, and a
+        scrolling list inside it scrolls rather than moving the drawer until
+        the list reaches its end.
+
+    swipeToOpen:
+        The component can let the user open it by swiping in from its edge of
+        the screen.
+
+    keyboard:
+        Dragging is never the only way to close it. Escape and a close button
+        work as they do in a Dialog. Whether the user can move between resting
+        sizes from the keyboard, such as with a grab handle that takes focus,
+        is up to the chosen library; where they can't, the drawer opens at a
+        size that shows everything it needs to.
+
+    stacking:
+        A drawer can open another on top of it. Whether the ones underneath
+        shrink back or dim to show the stack is up to the chosen library.
+
+    nonGoals:
+        - Not a permanent side bar. A panel that is always part of the layout
+            isn't a drawer
+        - Not attached to anything on the page. That's a Popover

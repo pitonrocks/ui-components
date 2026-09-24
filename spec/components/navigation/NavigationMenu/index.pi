@@ -1,0 +1,79 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Disclosure import Disclosure
+from ../../../behaviors/Dismissal import Dismissal
+from ../../../behaviors/Positioning import Positioning
+from ../../../behaviors/Presence import Presence
+from ../../Link import Link
+
+export ui-component NavigationMenu:
+    description:
+        A navigation menu is a site's main set of links, usually a bar across
+        the top. Some of its items are links; others open a panel of further
+        links and content, such as "Products" opening a panel listing every
+        product.
+
+    composes:
+        - @{Link}
+
+    behaviors:
+        - @{Disclosure}
+        - @{Positioning}
+        - @{Dismissal}
+        - @{Presence}
+
+    items:
+        Each top-level item is either a Link that goes somewhere, or a trigger
+        that opens a panel. A trigger only opens its panel; it never goes
+        anywhere itself. The whole menu has a name, such as "Main", so
+        assistive tools can list it with other navigation on the page.
+
+    opening:
+        Clicking or pressing a trigger opens its panel, and doing it again
+        closes it. Resting the pointer on a trigger also opens it after a short
+        delay, and moving away closes it after another, so the pointer can
+        cross the gap into the panel without it closing. The component can
+        change these delays, or turn off opening on hover.
+
+    oneAtATime:
+        Only one panel is open at a time. While one is open, moving to another
+        trigger switches straight to its panel, without waiting.
+
+    keyboard:
+        Every top-level item is its own stop in the Tab order. The arrow keys
+        along the bar also move between them, and Home and End go to the first
+        and last. From a trigger whose panel is open, Tab moves into the panel,
+        and on out of it to the next top-level item. Inside a panel, the arrow
+        keys move between its links. Which keys open a panel is up to the
+        chosen library.
+
+    closing:
+        A panel closes the ways Dismissal describes. Escape closes it and puts
+        focus back on its trigger. Following a link inside it closes it too,
+        unless the component says otherwise.
+
+    current:
+        The link to the page the user is on is marked as the current page,
+        both on screen and for assistive tools. A trigger whose panel holds
+        the current page can be marked too.
+
+    panels:
+        Each panel can sit under its own trigger, or all panels can share one
+        area under the whole bar that changes size smoothly as the user moves
+        between triggers. Which is up to the chosen library. A panel can hold
+        a further level of navigation of its own.
+
+    orientation:
+        The menu usually runs across the top of the page, with the arrow keys
+        reversed for right-to-left languages. It can also run down the side.
+
+    disabled:
+        A disabled trigger can't open its panel, and the arrow keys pass over
+        it.
+
+    nonGoals:
+        - Not a menu of actions, like an app's File and Edit menus. It holds
+            links to places
+        - Doesn't block the rest of the page or keep focus inside a panel
+        - No small-screen version. Folding it into a single menu button on a
+            narrow screen is up to the component using it

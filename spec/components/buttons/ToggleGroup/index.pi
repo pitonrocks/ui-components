@@ -1,0 +1,57 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+from ../ToggleButton import ToggleButton
+
+export ui-component ToggleGroup:
+    description:
+        A toggle group is a set of related ToggleButtons, like the Bold,
+        Italic and Underline buttons in a text editor, or the alignment
+        buttons next to them. It lets either one or any number of them be
+        pressed at once.
+
+    composes:
+        - @{ToggleButton}
+
+    behaviors:
+        - @{Selection}
+        - @{Traversal}
+
+    modes:
+        The component chooses whether one button or several can be pressed at
+        a time. This is set once and doesn't change while it is in use.
+
+    single:
+        Pressing a button presses it in and pops out whichever was pressed
+        before, as with text alignment. The component decides whether pressing
+        the pressed button pops it out, leaving none pressed.
+
+    multiple:
+        Each button is pressed and popped out on its own, as with Bold and
+        Italic. Pressing one leaves the others alone.
+
+    keyboard:
+        The group is one stop in the Tab order, landing on a pressed button,
+        or the first available one if none is pressed. The arrow keys move
+        focus between the buttons without pressing them, and Home and End go
+        to the first and last. Pressing a button from the keyboard works the
+        same as on any ToggleButton. By default the arrow keys wrap around at
+        the ends, but the component can make them stop instead.
+
+    layout:
+        The buttons can be laid out in a row or a column. The arrow keys follow
+        the direction they are laid out in.
+
+    label:
+        The group has a name for the whole set, such as "Text formatting", as
+        well as each button having its own.
+
+    disabled:
+        The whole group can be disabled, as can individual buttons.
+
+    nonGoals:
+        - Pressed buttons are not saved with a form. A choice made in a form is
+            a RadioGroup or a set of Checkboxes
+        - Not for a choice where exactly one option must always be picked and
+            moving to an option picks it. That's a SegmentedControl

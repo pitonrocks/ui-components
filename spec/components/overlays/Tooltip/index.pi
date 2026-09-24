@@ -1,0 +1,61 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Positioning import Positioning
+from ../../../behaviors/Presence import Presence
+
+export ui-component Tooltip:
+    description:
+        A tooltip is a short piece of text that appears next to something when
+        the user points at it or focuses it, such as "Bold (Ctrl+B)" beside an
+        icon button. It goes away when they move on. It never takes focus.
+
+    behaviors:
+        - @{Positioning}
+        - @{Presence}
+
+    showing:
+        It appears when the pointer rests on the thing it belongs to for a
+        moment, or straight away when that thing gets keyboard focus. Once one
+        tooltip has appeared, moving to a neighbouring one shows it straight
+        away, without waiting again. The component can change how long it
+        waits. Whether it appears on touch screens is up to the chosen library.
+
+    hiding:
+        It goes after a short pause when the pointer leaves, and straight away
+        when focus leaves, when the user presses Escape, or when they click or
+        press on the thing it belongs to. Escape closes only the tooltip,
+        leaving anything underneath it open. Whether scrolling the page hides
+        it is up to the chosen library. Only one tooltip shows at a time.
+
+    hoverable:
+        The pointer can move from the thing onto the tooltip without it
+        disappearing, so the user can read it, zoom in on it, or select its
+        text. It stays until the pointer leaves both.
+
+    reading:
+        Its text is linked to the thing it belongs to, so assistive tools read
+        it out when that thing is focused, whether the tooltip is showing or
+        not. It usually adds a description. For an IconButton, it can repeat
+        the button's name instead.
+
+    triggers:
+        Several things can share one tooltip, such as a row of toolbar
+        buttons. It attaches to whichever one the user is on, and moving
+        between them moves it without hiding it.
+
+    content:
+        Short, plain text. It may show a small arrow pointing at the thing it
+        belongs to, which follows where Positioning actually put it.
+
+    disabled:
+        The component can turn a tooltip off. Things that are disabled can
+        still show a tooltip, so the user can find out why they're disabled,
+        as long as the chosen library lets them be pointed at or focused.
+
+    nonGoals:
+        - Nothing in it can be pressed or focused. Links or buttons in a panel
+            that appears on hover make it a HoverCard, and anything else a
+            Popover
+        - It is never the only place important information lives. Touch
+            screen users may never see it
+        - It isn't a label. Something that needs a name has one of its own

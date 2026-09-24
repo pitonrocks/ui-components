@@ -1,0 +1,58 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../buttons/Button import Button
+
+export ui-component SignaturePad:
+    description:
+        A signature pad is an area where the user draws their signature with a
+        finger, pen, or mouse. The drawing is its value, and the user can clear
+        it and start again.
+
+    composes:
+        - @{Button}
+
+    behaviors:
+        - @{FormParticipation}
+
+    drawing:
+        Pressing and moving draws a line that follows the pointer, and letting
+        go ends it. A signature can be made of many lines. Lines are smoothed,
+        and can vary in thickness with the pen's pressure or the speed of
+        drawing, like ink. While drawing, the page doesn't scroll and no text
+        is selected.
+
+    ink:
+        The component sets the colour and thickness of the lines.
+
+    clearing:
+        A clear Button removes the whole drawing. Whether the last line can be
+        undone on its own is up to the chosen library.
+
+    value:
+        The value is the lines drawn, and it is empty until something is drawn.
+        The component using the pad is told as each line is drawn and when it
+        is finished, and can get the drawing as an image. It can also set the
+        lines itself, such as to show a signature saved earlier.
+
+    form:
+        In a form, the component decides what is sent for the drawing, such as
+        the image. A required pad with nothing drawn counts as empty.
+
+    guide:
+        The pad can show a line to sign on and a hint such as "Sign here".
+        These are not part of the drawing.
+
+    disabled:
+        A disabled pad can't be drawn on or cleared. A read-only pad shows its
+        drawing but can't be changed.
+
+    otherWays:
+        A signature can't be drawn with the keyboard, and some users can't
+        draw one at all. The pad has a name that assistive tools read out, and
+        says whether anything has been drawn. Wherever a signature is asked
+        for, the app offers another way to give one, such as typing a name.
+
+    nonGoals:
+        - It doesn't check that a signature is genuine, or who drew it
+        - Not a drawing tool. No colours to pick, rubbing out, or shapes

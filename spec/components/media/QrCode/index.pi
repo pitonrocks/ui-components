@@ -1,0 +1,48 @@
+use ../../../lib/UiComponent
+
+from ../../buttons/Button import Button
+
+export ui-component QrCode:
+    description:
+        A QR code shows a piece of text, usually a web address, as a square
+        pattern that a phone camera or scanner can read. It only shows
+        information; it doesn't collect any.
+
+    composes:
+        - @{Button}
+
+    value:
+        The component gives it the text to show. When the text changes, the
+        pattern is redrawn straight away. Longer text makes a denser pattern.
+
+    errorCorrection:
+        The component chooses how much of the pattern can be covered or
+        damaged and still be read, from a little to about a third. More makes
+        the pattern denser, but is needed when a logo covers the middle or the
+        code may be printed small or get scuffed.
+
+    logo:
+        A small picture, such as a logo, can be placed in the middle. The code
+        still reads as long as the error correction allows for what it
+        covers.
+
+    appearance:
+        It stays sharp at any size. The colours of the pattern and its
+        background can be chosen, but scanners need strong contrast between
+        them, and a dark pattern on a light background is the safest.
+
+    name:
+        The pattern means nothing to someone who can't see or scan it. It has
+        a name that assistive tools read out, saying what it's for, such as
+        "QR code for the booking page". The text it holds isn't read out as
+        part of the pattern; if people need it, such as a web address, the app
+        shows it nearby as text or a Link.
+
+    saving:
+        The component can offer a Button that saves the code as an image,
+        including any logo. Which image formats are offered is up to the
+        chosen library.
+
+    nonGoals:
+        - No scanning. Reading codes with a camera is a separate component
+        - Only QR codes, not other kinds of barcode

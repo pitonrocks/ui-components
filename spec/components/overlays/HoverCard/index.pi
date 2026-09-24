@@ -1,0 +1,49 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Dismissal import Dismissal
+from ../../../behaviors/Positioning import Positioning
+from ../../../behaviors/Presence import Presence
+
+export ui-component HoverCard:
+    description:
+        A hover card is a preview that pops up when the user points at a link,
+        such as a person's profile card when pointing at their name. It shows
+        what is behind the link without following it. It is a convenience;
+        everything in it can also be reached by following the link.
+
+    behaviors:
+        - @{Positioning}
+        - @{Dismissal}
+        - @{Presence}
+
+    showing:
+        It appears when the pointer rests on the link for a moment, and also
+        when the link gets keyboard focus. It waits longer than a Tooltip, so
+        it doesn't pop up while the pointer is just passing over. The
+        component can change how long it waits, and can turn the card off.
+
+    hiding:
+        It goes after a short pause when the pointer leaves both the link and
+        the card, or when focus leaves the link. The pause lets the user move
+        the pointer across onto the card. It also closes the ways Dismissal
+        describes, such as Escape.
+
+    content:
+        Richer than a Tooltip: a picture, a few lines of text, and even links
+        of its own. It may show a small arrow pointing at the link, which
+        follows where Positioning actually put it.
+
+    triggers:
+        Several links can share one card, such as each name in a list. It
+        attaches to whichever one the user is on, and moving between them moves
+        it without closing it.
+
+    assistiveTools:
+        Assistive tools aren't told about the card, and pressing the link
+        follows it as usual. Whether keyboard users can move into the card is
+        up to the chosen library, which is why nothing may be available only
+        in the card.
+
+    nonGoals:
+        - Not opened by pressing. A panel opened by pressing is a Popover
+        - Not for plain-text hints. That's a Tooltip

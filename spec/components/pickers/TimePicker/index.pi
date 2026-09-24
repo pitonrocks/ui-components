@@ -1,5 +1,7 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../../behaviors/Presence import Presence
 from ../../collections/List import List
 from ../../overlays/Popover import Popover
 
@@ -12,6 +14,10 @@ export ui-component TimePicker:
     composes:
         - @{Popover}
         - @{List}
+
+    behaviors:
+        - @{FormParticipation}
+        - @{Presence}
 
     value:
         A time of day, with no date and no time zone. Seconds are only
@@ -33,6 +39,10 @@ export ui-component TimePicker:
     limits:
         The component can set an earliest and latest time. Times outside them
         are shown but can't be picked.
+
+    disabled:
+        A disabled time picker can't be focused, typed in, or opened. A
+        read-only one shows its time but it can't be changed.
 
     nonGoals:
         - No lengths of time, such as "2 hours 30 minutes". That's a duration,

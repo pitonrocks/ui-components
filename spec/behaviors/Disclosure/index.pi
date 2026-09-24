@@ -1,0 +1,59 @@
+use ../../lib/UiBehavior
+
+export ui-behavior Disclosure:
+    description:
+        Disclosure lets the user show and hide a region of content with a
+        trigger, such as a "Show details" button or the heading of a section
+        that folds away. It belongs to the component that has both the
+        trigger and the region.
+
+    trigger:
+        Pressing the trigger switches the region between shown and hidden. It
+        is pressed like any button: clicking, tapping, or using the keyboard.
+        The trigger tells assistive tools whether the region is shown, and
+        which region it controls.
+
+    state:
+        The region is either shown or hidden. It can start either way. The
+        component using it is told each time this changes, and can also set it
+        at any time, such as showing a section that holds an error.
+
+    hiddenContent:
+        Hidden content can't be reached with the keyboard or by assistive
+        tools. Whether the platform's find-in-page can still search it, and
+        show the region when it finds a match, is up to the chosen library.
+        Whether hidden content stays rendered is Presence.
+
+    partialCollapse:
+        A region can shrink to a set size instead of disappearing, such as
+        showing the first few lines of a long description with "Show more".
+        The trigger still says whether the region is fully shown. Whether the
+        cut-off part can be reached while it is shrunk is up to the chosen
+        library.
+
+    direction:
+        A region usually opens downwards. It can also open sideways, such as a
+        side panel that grows wider.
+
+    focus:
+        Showing the region doesn't move focus. It stays on the trigger, so the
+        user can press it again to hide the region. If focus is inside the
+        region when it is hidden, it goes back to the trigger rather than
+        being lost.
+
+    disabled:
+        A disabled trigger can't be pressed, and the region stays shown or
+        hidden as it was. The component can still change it.
+
+    groups:
+        A component can hold several disclosures together, such as a stack of
+        sections where opening one closes the others. That component decides
+        whether more than one region can be shown at once, and whether the
+        last shown region can be hidden. Moving between the triggers with the
+        arrow keys, if it allows that, is Traversal.
+
+    nonGoals:
+        - The region doesn't float above the page or close when the user
+            clicks elsewhere. A panel that does is a Popover, which uses
+            Dismissal
+        - Hovering doesn't show the region. Only pressing the trigger does

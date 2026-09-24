@@ -1,10 +1,15 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component TextField:
     description:
         A text field is a box for typing a single line of text. It can show a
         hint while empty, and can be set up for special kinds of text such as
         passwords, email addresses, or searches.
+
+    behaviors:
+        - @{FormParticipation}
 
     label:
         A text field always has a name, normally shown as a visible label. The
@@ -13,7 +18,9 @@ export ui-component TextField:
 
     value:
         The text the user has typed. The component using the field is told
-        each time it changes, and can also set it.
+        each time it changes, and can also set it. Pressing Enter in a field
+        that is part of a form submits the form, as it usually does on the
+        platform.
 
     kinds:
         The field can be marked as a particular kind of text, such as a
@@ -29,7 +36,8 @@ export ui-component TextField:
     helpAndErrors:
         The field can show help text, and an error message when what was
         typed isn't valid. Both are linked to the field so assistive tools read
-        them out with it. Deciding what's valid is up to the component or
+        them out with it. A field marked as not valid is shown that way and
+        announced as such. Deciding what's valid is up to the component or
         form, not the field.
 
     extras:

@@ -1,5 +1,6 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
 from ../../../behaviors/Selection import Selection
 from ../../../behaviors/Traversal import Traversal
 
@@ -13,6 +14,7 @@ export ui-component SegmentedControl:
     behaviors:
         - @{Selection}
         - @{Traversal}
+        - @{FormParticipation}
 
     value:
         Exactly one segment is always picked. Clicking the picked segment again
@@ -32,6 +34,15 @@ export ui-component SegmentedControl:
         Meant for a handful of short options, usually two to five. Longer lists
         belong in a Select or RadioGroup.
 
+    layout:
+        Usually a row, but it can also be a column. The arrow keys follow the
+        direction it is laid out in.
+
+    disabled:
+        The whole control can be disabled, as can individual segments. A
+        read-only control can still be moved through and read out, but the
+        picked segment can't be changed.
+
     nonGoals:
         - Not for switching between pages or panels of content. That's tabs
-        - Not for picking several options. A row of ToggleButtons does that
+        - Not for picking several options. A ToggleGroup does that

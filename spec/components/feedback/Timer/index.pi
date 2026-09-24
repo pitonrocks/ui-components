@@ -1,0 +1,53 @@
+use ../../../lib/UiComponent
+
+from ../../buttons/Button import Button
+
+export ui-component Timer:
+    description:
+        A timer shows time running, either counting down to zero, like an oven
+        timer, or counting up from zero, like a stopwatch. It can be started,
+        paused, resumed and reset.
+
+    composes:
+        - @{Button}
+
+    countdown:
+        Counting down starts from a length of time the component gives, such
+        as 5 minutes, and stops at zero.
+
+    stopwatch:
+        Counting up starts from zero, or from a time the component gives. It
+        keeps going until stopped, or the component can give a time to stop at.
+
+    controls:
+        Buttons start, pause, resume and reset it, and restart it from the
+        beginning. Only the ones that make sense are available, so a running
+        timer can be paused but not started. The component can do all of these
+        itself, and can start the timer as soon as it appears.
+
+    display:
+        It shows the time in parts, such as hours, minutes and seconds, with
+        leading zeros, like `05:09`. The component chooses which parts to show,
+        and whether to include days or fractions of a second. How often the
+        display changes is up to the component, once a second by default.
+
+    accuracy:
+        The time shown is worked out from the clock, not by counting updates,
+        so it stays right even if the page is busy or hidden for a while.
+
+    finishing:
+        When it reaches zero, or the time to stop at, it stops and the
+        component is told. The component is also told each time it changes, if
+        it wants to be.
+
+    assistiveTools:
+        It is marked as a timer and has a name, such as "Time left".
+        Assistive tools can read out the current time whenever they look, but
+        aren't told about every change, which would be noise. When the timer
+        finishes, the component can tell them using Announcement.
+
+    nonGoals:
+        - Not a clock showing the time of day
+        - No laps, alarms, or sounds. The app can add those
+        - It doesn't carry on after the page is reloaded. An app that needs
+            that keeps the start time itself

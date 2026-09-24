@@ -1,0 +1,71 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Announcement import Announcement
+from ../../../behaviors/KeyboardShortcuts import KeyboardShortcuts
+from ../../../behaviors/Presence import Presence
+
+export ui-component Toast:
+    description:
+        A toast is a short message that pops up in a corner of the screen to
+        say something has happened, such as "Message sent", and goes away by
+        itself after a few seconds. It doesn't interrupt what the user is
+        doing.
+
+    behaviors:
+        - @{Announcement}
+        - @{Presence}
+        - @{KeyboardShortcuts}
+
+    content:
+        A title, and optionally a line of description. It can have one action
+        button, such as Undo, and a close button.
+
+    kinds:
+        A toast can be marked as information, success, a warning, an error, or
+        loading. Each kind looks different, and not only by colour. The
+        component can add kinds of its own.
+
+    timing:
+        Each toast stays for long enough to read, then goes. How long depends on
+        its kind, and the component can change it for any toast. A loading
+        toast stays until it's changed. A toast with an action stays longer, so
+        there is time to reach it.
+
+    pausing:
+        While the pointer is over the toasts, or focus is in them, none of them
+        go away. The countdown also stops while the page is hidden, such as
+        when the user switches to another tab, so nothing is missed. The
+        component can pause and resume them too.
+
+    updating:
+        A toast can be changed while it's showing, such as a loading toast
+        turning into "Saved" or "Couldn't save" when a task finishes. The
+        component can follow a task and do this for it. The component can also
+        remove a toast early.
+
+    stacking:
+        New toasts join a stack in the corner or edge the component chooses.
+        There is a limit on how many show at once. The rest wait their turn,
+        and more urgent ones, such as errors, go first.
+
+    announcing:
+        Assistive tools read out each toast when it appears, as Announcement
+        describes, without moving focus. Whether errors interrupt what is being
+        read is up to the chosen library.
+
+    focus:
+        A toast never takes focus. A keyboard shortcut moves focus to the
+        toasts, so their buttons can be reached, and assistive tools are told
+        what the shortcut is. When focus leaves them, it goes back where it was.
+
+    closing:
+        The close button, and Escape while focus is on a toast, close it
+        straight away. Whether it can be swiped away is up to the chosen
+        library. The component is told when a toast has gone.
+
+    nonGoals:
+        - Nothing important lives only in a toast. It may go before the user
+            sees it, so its action is also available elsewhere
+        - Not for questions that need an answer. That's a Dialog with an alert
+        - Not attached to anything on the page, and not a banner that stays
+            until closed

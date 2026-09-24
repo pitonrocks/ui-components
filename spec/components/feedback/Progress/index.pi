@@ -1,0 +1,50 @@
+use ../../../lib/UiComponent
+
+export ui-component Progress:
+    description:
+        A progress indicator shows how far along a task is, such as an upload.
+        It is either a bar that fills up, or a ring that fills round. If how
+        far along the task is isn't known, it shows that something is
+        happening instead.
+
+    shapes:
+        A bar runs across, or up and down if the component says so. A bar
+        running across fills from the right for right-to-left languages. A
+        ring fills clockwise, and the component chooses its size and how thick
+        it is.
+
+    value:
+        A number between a minimum and a maximum, 0 and 100 unless the
+        component says otherwise. It is kept within them. The component sets
+        it as the task goes on; the user never can.
+
+    indeterminate:
+        When the component gives no value, the task's length isn't known, such
+        as while connecting to a server. It then shows movement rather than a
+        fill, and assistive tools are told the value isn't known. Giving a
+        value later switches it back.
+
+    valueText:
+        The value can be shown as text, a percentage by default, written the
+        user's local way, such as `45 %` or `45%`. The component can give
+        friendlier text instead, such as "3 of 10 files". Assistive tools read
+        out the same text.
+
+    name:
+        It has a name saying what is in progress, such as "Uploading
+        report.pdf".
+
+    announcing:
+        Assistive tools aren't told about every change, which would be noise.
+        They can find the value whenever they look at it. If the finish matters,
+        the component tells them using Announcement.
+
+    motion:
+        When the user has asked their device for less motion, the movement of
+        an indeterminate indicator is toned down.
+
+    nonGoals:
+        - Not something the user changes. That's a Slider
+        - Not a measurement that isn't a task, such as how full a disk is.
+            That's a meter
+        - Not for showing which step of a longer process the user is on

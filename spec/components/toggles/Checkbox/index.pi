@@ -1,10 +1,15 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component Checkbox:
     description:
         A checkbox is a box the user ticks or unticks. It can also show a third
         "partly checked" state, such as a "select all" box when only some of
         the items under it are ticked.
+
+    behaviors:
+        - @{FormParticipation}
 
     states:
         Checked, unchecked, or partly checked. Only the component using the
@@ -21,7 +26,14 @@ export ui-component Checkbox:
 
     disabled:
         A disabled checkbox can't be changed, and it's clear to the user that
-        it's unavailable. It keeps showing its current state.
+        it's unavailable. It keeps showing its current state. A read-only
+        checkbox can be focused and read out, but not changed.
+
+    submission:
+        In a form, a ticked checkbox sends its value, which the component can
+        choose, and an unticked one sends nothing. Whether a partly checked box
+        sends its value is up to the chosen library. A required checkbox, such
+        as agreeing to terms, must be ticked before the form can be submitted.
 
     independence:
         Each checkbox is its own yes-or-no choice. Ticking one never unticks

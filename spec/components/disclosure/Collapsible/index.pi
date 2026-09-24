@@ -1,0 +1,50 @@
+use ../../../lib/UiComponent
+
+from ../../../behaviors/Disclosure import Disclosure
+from ../../../behaviors/Presence import Presence
+
+export ui-component Collapsible:
+    description:
+        A collapsible is one section of content that the user can show and hide
+        with a button, such as "Show details" under a summary. It tucks
+        something away without taking the user anywhere else.
+
+    behaviors:
+        - @{Disclosure}
+        - @{Presence}
+
+    trigger:
+        The button stays where it is whether the section is shown or hidden. It
+        tells assistive tools whether the section is shown, and which section
+        it controls. Its label can stay the same or change, such as from "Show
+        more" to "Show less"; the component decides.
+
+    activation:
+        Pressing the trigger the usual way for the platform shows the section
+        if it is hidden, and hides it if it is shown. Focus stays on the
+        trigger either way.
+
+    state:
+        The component decides whether the section starts shown or hidden, and
+        can show or hide it itself. It is told each time the user does.
+
+    disabled:
+        A disabled collapsible can't be shown or hidden by the user. It stays
+        in whichever state it was in.
+
+    direction:
+        Usually the section grows and shrinks downwards. It can also grow
+        sideways, such as a side panel that folds away.
+
+    partialCollapse:
+        The component can keep part of the content showing while collapsed,
+        such as the first few lines of a long description, instead of hiding
+        all of it. Whether the part that is cut off can still be reached by
+        keyboard and assistive tools is up to the chosen library, so it is best
+        not to put links or buttons there.
+
+    nonGoals:
+        - Not for several sections where opening one may close another. That's
+            an Accordion
+        - The section doesn't float above the page. A panel that does is a
+            Popover

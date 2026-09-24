@@ -16,10 +16,17 @@ export ui-behavior Traversal:
         rows. Home and End go to the start and end of the row. Anything beyond
         that follows the WAI-ARIA Authoring Practices grid pattern.
 
+    direction:
+        Left and Right match what the user sees. Where a right-to-left language
+        flips the layout, Left moves to the next item and Right to the
+        previous one. Up and Down are not affected.
+
     tabStop:
         Pressing Tab moves into the whole group in one step, and pressing it
         again moves out. Tabbing in lands on the item the user was last on, so
-        they pick up where they left off.
+        they pick up where they left off. A few components give every item its
+        own Tab stop as well as arrow keys, such as the headings of an
+        Accordion; they say so themselves.
 
     bounds:
         Whether the arrow keys stop at the first and last item, or wrap around

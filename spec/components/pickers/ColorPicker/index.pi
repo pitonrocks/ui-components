@@ -1,5 +1,8 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/Dragging import Dragging
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../../behaviors/Presence import Presence
 from ../../../behaviors/Traversal import Traversal
 from ../../fields/TextField import TextField
 from ../../layout/Grid import Grid
@@ -20,23 +23,32 @@ export ui-component ColorPicker:
 
     behaviors:
         - @{Traversal}
+        - @{Dragging}
+        - @{FormParticipation}
+        - @{Presence}
 
     trigger:
         A small button showing the current colour opens the picker in a popup.
+        The component can instead show the picker in place, always open, with
+        no button or popup.
 
     parts:
         The component chooses which of these to show: a colour area with a
-        hue slider, a set of swatches, and a box for typing a colour code.
-        Changing any one updates the others.
+        hue slider, a set of swatches, a box for typing a colour code, boxes
+        for each part of the colour such as red, green and blue, and a preview
+        of the chosen colour. Changing any one updates the others.
 
     colourArea:
-        The user drags a point around a square of colours, or moves it with
-        the arrow keys. A slider beside it picks the hue.
+        The user drags a point around a square of colours, or clicks to move it
+        there, or moves it with the arrow keys. A slider beside it picks the
+        hue. The component is told about changes continuously while dragging,
+        and again once when the user lets go.
 
     swatches:
         Swatches are laid out in a grid. Each has a name that assistive tools
         read out, such as "Ocean blue", rather than a code. The user moves
-        between them with the arrow keys.
+        between them with the arrow keys. The component decides whether
+        picking a swatch closes the popup.
 
     typing:
         The user can type a colour code. It's read when they finish, and if it
@@ -47,6 +59,10 @@ export ui-component ColorPicker:
     transparency:
         If the component allows it, a second slider sets how see-through the
         colour is.
+
+    disabled:
+        A disabled color picker can't be opened or changed. A read-only one
+        shows its colour and can be opened and read out, but not changed.
 
     nonGoals:
         - Picking a colour from elsewhere on screen is up to the chosen library

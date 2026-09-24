@@ -1,0 +1,55 @@
+use ../../lib/UiBehavior
+
+export ui-behavior Presence:
+    description:
+        Presence handles content appearing and disappearing, such as a panel
+        opening or a notification going away, including any animation on the
+        way in or out. It belongs to the component that shows and hides the
+        content.
+
+    state:
+        The component says whether the content should be shown. Presence
+        decides when it is actually drawn and when it is actually removed, so
+        that animations have time to play.
+
+    leaving:
+        When the content is hidden, it stays on screen until its leaving
+        animation finishes, and is then removed. If it has no leaving
+        animation, or the page can't be seen, such as in a background tab, it
+        is removed straight away. Content on its way out already counts as
+        closed and can't be used, even while it is still visible.
+
+    entering:
+        Content can animate as it appears. Whether content that is already
+        shown when the page first loads plays its entering animation is up to
+        the chosen library.
+
+    interruption:
+        If the content is shown again while it is still leaving, it stops
+        leaving and stays, without being removed and drawn again. If it is
+        hidden again while still entering, it leaves from wherever it got to.
+
+    reporting:
+        The component is told when content has finished entering and when it
+        has finished leaving and been removed, so it can wait until the
+        content is fully in or fully gone before doing something.
+
+    keeping:
+        By default, content is not drawn until it is first shown, and is
+        removed when it is hidden. The component can instead keep hidden
+        content drawn, so it holds on to what's inside, such as a half-filled
+        form or a scroll position. It can also have content drawn from the
+        start, even before it is first shown. Content that is kept while
+        hidden still can't be seen, reached with the keyboard, or read by
+        assistive tools.
+
+    reducedMotion:
+        Nothing depends on an animation running. When the user has asked their
+        device for less motion, content can enter and leave with little or no
+        animation, at the same moments as it otherwise would.
+
+    nonGoals:
+        - It doesn't define the animations. How content moves, fades, or grows
+            is up to the chosen library and the app
+        - It doesn't decide when content should be shown. That's up to the
+            component, often through Disclosure

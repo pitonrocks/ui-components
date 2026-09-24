@@ -1,9 +1,14 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+
 export ui-component Switch:
     description:
         A switch turns a setting on or off, like a light switch. Flipping it
         takes effect straight away, with no Save or OK step.
+
+    behaviors:
+        - @{FormParticipation}
 
     states:
         On or off, with nothing in between. Flipping it switches the state and
@@ -15,15 +20,21 @@ export ui-component Switch:
         whether it's on or off. Whether it's on is conveyed separately.
 
     activation:
-        The user flips it the usual way for the platform: clicking, tapping,
-        dragging the knob, or using the keyboard. Clicking its label also flips
-        it. Which keys do this is up to the chosen library.
+        The user flips it the usual way for the platform: clicking, tapping, or
+        using the keyboard. Clicking its label also flips it. Which keys do
+        this, and whether the knob can be dragged, is up to the chosen library.
+
+    forms:
+        A switch inside a form still takes effect straight away, and its state
+        is also sent with the form, the way FormParticipation describes. That
+        lets a settings page work both ways.
 
     disabled:
         A disabled switch can't be flipped, and it's clear to the user that it's
-        unavailable. It keeps showing whether it's on or off.
+        unavailable. It keeps showing whether it's on or off. A read-only
+        switch can be focused and read out, but not flipped.
 
     nonGoals:
         - No partly-on state. That's a Checkbox
-        - Not for choices saved later with the rest of a form. That's a
+        - Not for choices that only take effect when a form is saved. That's a
             Checkbox

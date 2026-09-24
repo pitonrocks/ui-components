@@ -1,0 +1,43 @@
+use ../../../lib/UiComponent
+
+export ui-component Avatar:
+    description:
+        An avatar is a small picture that stands for a person or thing, such as
+        a user's profile photo. If there is no picture, or it can't be loaded,
+        it shows something in its place, such as the person's initials or a
+        generic icon.
+
+    picture:
+        The component gives it a picture to show. The fallback is shown while
+        the picture loads, and the picture replaces it once it has loaded. If
+        the picture fails to load, the fallback stays. The component using the
+        avatar is told whether the picture loaded or failed.
+
+    fallback:
+        The component chooses the fallback, usually initials taken from a name,
+        or an icon. Whether the fallback appears straight away or after a
+        short wait, so it doesn't flash up on a fast connection, is up to the
+        chosen library.
+
+    changing:
+        When the picture changes, the new one loads the same way, with the
+        fallback shown until it is ready. An old picture is never left showing
+        in place of a new one that failed.
+
+    name:
+        An avatar has a name that assistive tools read out, usually the
+        person's name, whichever of the picture or fallback is showing. If
+        the same name is already shown next to it, the avatar is hidden from
+        assistive tools instead, so the name isn't read out twice.
+
+    appearance:
+        Its size and shape, such as round or square, are up to the chosen
+        library. The picture fills the shape without being stretched.
+
+    nonGoals:
+        - Nothing happens when it is pressed. An avatar that opens a profile is
+            placed inside a Button or Link
+        - No status dot, such as "online". A badge on top of it is a separate
+            component
+        - No stacks of avatars with a "+3" count. That's a separate component
+            that uses avatars

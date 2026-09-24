@@ -1,0 +1,43 @@
+use ../../../lib/UiComponent
+
+from ../Menu import Menu
+
+export ui-component ContextMenu:
+    description:
+        A context menu is a Menu that opens where the user right-clicks, or
+        long-presses on a touch screen, inside some area, such as a file in a
+        list. It offers actions for the thing that was clicked, in place of the
+        platform's own menu.
+
+    composes:
+        - @{Menu}
+
+    opening:
+        Right-clicking inside the area opens the menu at the pointer, in place
+        of the platform's own menu. On touch screens and with a pen, pressing
+        and holding for a moment opens it; letting go early or moving away
+        doesn't. From the keyboard, the platform's usual key for this, such as
+        the context menu key or Shift+F10, opens it beside whatever is focused.
+        The first item is current when it opens.
+
+    position:
+        It opens with a corner at the point that was clicked, and Positioning
+        keeps it on screen from there. Right-clicking somewhere else in the
+        area while it's open moves it there.
+
+    target:
+        The component is told where in the area the menu was opened, so it can
+        offer actions for that thing, such as the file under the pointer.
+
+    closing:
+        It closes the way a Menu does. Focus then goes back to whatever had it
+        before the menu opened.
+
+    everythingElse:
+        Items, submenus, ticked and picked options, and moving around all work
+        as in a Menu.
+
+    nonGoals:
+        - Nothing in it is available only there. Right-clicking and long-pressing
+            are hard to discover, so every action also has another way in
+        - No button opens it. A menu opened from a button is a Menu

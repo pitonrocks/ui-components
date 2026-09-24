@@ -1,5 +1,7 @@
 use ../../../lib/UiComponent
 
+from ../../../behaviors/FormParticipation import FormParticipation
+from ../../../behaviors/Presence import Presence
 from ../../../behaviors/Traversal import Traversal
 from ../../layout/Grid import Grid
 from ../../overlays/Popover import Popover
@@ -16,6 +18,8 @@ export ui-component DatePicker:
 
     behaviors:
         - @{Traversal}
+        - @{FormParticipation}
+        - @{Presence}
 
     value:
         A plain calendar date, such as 25 September 2026, with no time of day
@@ -24,23 +28,38 @@ export ui-component DatePicker:
     typing:
         The user can type a date in their local format. It's read when they
         finish. If it can't be read as a date, an error is shown and the value
-        doesn't change.
+        doesn't change. Whether it is typed into one box or into separate
+        segments for the day, month and year, as in a DateInput, is up to the
+        chosen library.
 
     calendar:
         A button next to the field opens a calendar showing one month. It
         opens on the month of the current value, or today's month if there is
         none, with that day focused. Today is marked. The week starts on the
-        day that's usual for the user's locale.
+        day that's usual for the user's locale, unless the component says
+        otherwise. The component can instead show the calendar in place,
+        always open, with no button or popup, and can show more than one month
+        side by side.
 
     calendarKeyboard:
         The arrow keys move a day at a time left and right, and a week at a
         time up and down, moving into the next or previous month as needed.
         Home and End go to the start and end of the week. Page Up and Page
         Down move a month, and with Shift, a year. Enter picks the focused day.
+        Buttons beside the month's name move to the previous and next month.
+
+    views:
+        The user can switch the calendar from days to a list of months, and
+        from months to a list of years, to get to a far-off date quickly.
+        Picking a year or month goes back down a level. Whether these views
+        are offered is up to the chosen library.
 
     picking:
         Picking a day sets the value and closes the calendar, and focus goes
-        back to the field. Escape closes it without changing anything.
+        back to the field. The component can choose to keep it open instead.
+        Escape closes it without changing anything. Whether several separate
+        days can be picked, rather than one or a range, is up to the chosen
+        library.
 
     range:
         For a range, the user picks two days, and the days between them are
@@ -51,6 +70,11 @@ export ui-component DatePicker:
         The component can set an earliest and latest date, and mark other days
         as unavailable, such as weekends. Unavailable days are shown but can't
         be picked.
+
+    disabled:
+        A disabled date picker can't be focused, typed in, or opened. A
+        read-only one shows its date and can be opened and moved through, but
+        no day can be picked.
 
     nonGoals:
         - No time of day. That's a TimePicker; a date and time together is the
