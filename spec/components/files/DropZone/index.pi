@@ -1,6 +1,6 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /components/files/FilePicker import FilePicker
+from ../FilePicker import FilePicker
 
 export ui-component DropZone:
     description:

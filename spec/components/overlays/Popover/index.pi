@@ -1,7 +1,7 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Dismissal import Dismissal
-from /behaviors/Positioning import Positioning
+from ../../../behaviors/Dismissal import Dismissal
+from ../../../behaviors/Positioning import Positioning
 
 export ui-component Popover:
     description:

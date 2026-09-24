@@ -1,4 +1,4 @@
-use /lib/UiBehavior
+use ../../lib/UiBehavior
 
 export ui-behavior Selection:
     description:

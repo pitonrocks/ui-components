@@ -1,9 +1,9 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Filtering import Filtering
-from /components/collections/List import List
-from /components/fields/TextField import TextField
-from /components/overlays/Popover import Popover
+from ../../../behaviors/Filtering import Filtering
+from ../../collections/List import List
+from ../../fields/TextField import TextField
+from ../../overlays/Popover import Popover
 
 export ui-component Combobox:
     description:

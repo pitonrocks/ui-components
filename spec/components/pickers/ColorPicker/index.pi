@@ -1,10 +1,10 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Traversal import Traversal
-from /components/fields/TextField import TextField
-from /components/layout/Grid import Grid
-from /components/overlays/Popover import Popover
-from /components/ranges/Slider import Slider
+from ../../../behaviors/Traversal import Traversal
+from ../../fields/TextField import TextField
+from ../../layout/Grid import Grid
+from ../../overlays/Popover import Popover
+from ../../ranges/Slider import Slider
 
 export ui-component ColorPicker:
     description:

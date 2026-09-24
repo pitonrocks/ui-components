@@ -1,6 +1,6 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /components/buttons/Button import Button
+from ../Button import Button
 
 export ui-component FloatingActionButton:
     description:

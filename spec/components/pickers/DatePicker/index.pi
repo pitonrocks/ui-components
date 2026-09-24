@@ -1,8 +1,8 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Traversal import Traversal
-from /components/layout/Grid import Grid
-from /components/overlays/Popover import Popover
+from ../../../behaviors/Traversal import Traversal
+from ../../layout/Grid import Grid
+from ../../overlays/Popover import Popover
 
 export ui-component DatePicker:
     description:

@@ -1,8 +1,8 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Selection import Selection
-from /behaviors/Traversal import Traversal
-from /components/toggles/Radio import Radio
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+from ../../toggles/Radio import Radio
 
 export ui-component RadioGroup:
     description:

@@ -1,8 +1,8 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Selection import Selection
-from /behaviors/Traversal import Traversal
-from /behaviors/Virtualisation import Virtualisation
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
+from ../../../behaviors/Virtualisation import Virtualisation
 
 export ui-component List:
     description:

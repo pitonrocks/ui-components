@@ -1,4 +1,4 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
 export ui-component Rating:
     description:

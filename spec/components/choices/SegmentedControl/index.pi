@@ -1,7 +1,7 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /behaviors/Selection import Selection
-from /behaviors/Traversal import Traversal
+from ../../../behaviors/Selection import Selection
+from ../../../behaviors/Traversal import Traversal
 
 export ui-component SegmentedControl:
     description:

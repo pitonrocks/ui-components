@@ -1,7 +1,7 @@
-use /lib/UiComponent
+use ../../../lib/UiComponent
 
-from /components/collections/List import List
-from /components/overlays/Popover import Popover
+from ../../collections/List import List
+from ../../overlays/Popover import Popover
 
 export ui-component Select:
     description:
